@@ -1,6 +1,6 @@
-import { notEnoughRessources } from "./exceptions"
+const { notEnoughRessources } = require("./exceptions")
 
-export const RESSOURCES = {
+const RESSOURCES = {
   RATION: "RATION",
   ELECTRICITY: "ELECTRICITY",
   ROBOT: "ROBOT",
@@ -14,27 +14,27 @@ let ressources = {
   [RESSOURCES.HUMAN]: 5 // TO DEF BY CONF FILE
 }
 
-export const consumeRation = quantity => {
+const consumeRation = quantity => {
   consume(RESSOURCES.RATION, quantity)
 }
 
-export const refillRation = quantity => {
+const refillRation = quantity => {
   refill(RESSOURCES.RATION, quantity)
 }
 
-export const consumeElectricity = quantity => {
+const consumeElectricity = quantity => {
   consume(RESSOURCES.ELECTRICITY, quantity)
 }
 
-export const refillElectricity = quantity => {
+const refillElectricity = quantity => {
   refill(RESSOURCES.ELECTRICITY, quantity)
 }
 
-export const killHuman = () => {
+const killHuman = () => {
   consume(RESSOURCES.HUMAN, 1)
 }
 
-export const killRobot = () => {
+const killRobot = () => {
   consume(RESSOURCES.ROBOT, 1)
 }
 
@@ -73,3 +73,16 @@ function getRobots() {
 function getHumans() {
   return ressources.humans
 }
+
+const getRessources = () => ressources
+
+module.exports.RESSOURCES = RESSOURCES
+
+module.exports.consumeRation = consumeRation
+module.exports.refillRation = refillRation
+module.exports.consumeElectricity = consumeElectricity
+module.exports.refillElectricity = refillElectricity 
+module.exports.killHuman = killHuman
+module.exports.killRobot = killRobot
+
+module.exports.getRessources = getRessources
