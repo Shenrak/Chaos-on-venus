@@ -6,8 +6,8 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Runtime: nodejs8.10
-      Handler: index.handler
-      CodeUri: ./
+      Handler: routes.getRessources
+      CodeUri: ./src
       Events:
         MyTimeApi:
           Type: Api
