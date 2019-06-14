@@ -1,0 +1,17 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      nodejs: 8.10
+    commands:
+      - npm install time
+      - export BUCKET=ppd-lambda-deployment-artifacts-123456789012
+      - aws cloudformation package --template-file template.yaml --s3-bucket $BUCKET --output-template-file outputtemplate.yaml
+artifacts:
+  type: zip
+  files:
+    - template.yaml
+    - outputtemplate.yaml
+Environment:
+  Variables:
+    REGION: eu-west-3

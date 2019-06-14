@@ -1,18 +1,18 @@
-import {
+const {
   RESSOURCES,
   consumeRation,
   consumeElectricity,
   getHumans,
   getRobots
-} from "./ressources"
+} = require("../services/ressources/ressources")
 
-export const humansSupply = () => {
+module.exports.humansSupply = () => {
   for (let i = 0; i < getHumans(); i++) {
     supply(RESSOURCES.HUMAN)
   }
 }
 
-export const robotsSupply = () => {
+module.exports.robotsSupply = () => {
   for (let i = 0; i < getRobots(); i++) {
     supply(RESSOURCES.ROBOT)
   }
