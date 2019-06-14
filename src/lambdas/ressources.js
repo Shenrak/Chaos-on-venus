@@ -1,10 +1,10 @@
-const { notEnoughRessources } = require("./exceptions")
+const { notEnoughRessources, unknownRessource } = require("./exceptions")
 
 const RESSOURCES = {
-  RATION: "RATION",
-  ELECTRICITY: "ELECTRICITY",
-  ROBOT: "ROBOT",
-  HUMAN: "HUMAN"
+  RATION: "ration",
+  ELECTRICITY: "electricity",
+  ROBOT: "robot",
+  HUMAN: "human"
 }
 
 let ressources = {
@@ -30,6 +30,19 @@ const refillElectricity = quantity => {
   refill(RESSOURCES.ELECTRICITY, quantity)
 }
 
+const kill = beingType => {
+  switch (beingType) {
+    case RESSOURCES.HUMAN:
+      killHuman()
+      break
+    case RESSOURCES.ROBOT:
+      killRobot()
+      break
+    default:
+      break
+  }
+}
+
 const killHuman = () => {
   consume(RESSOURCES.HUMAN, 1)
 }
@@ -38,9 +51,12 @@ const killRobot = () => {
   consume(RESSOURCES.ROBOT, 1)
 }
 
-const consume = (ressource, quantity) => {
+const consume = ({ ressource, quantity }) => {
+  // console.log(ressource, quantity)
   if (ressources[ressource] - quantity < 0) {
     notEnoughRessources(ressource)
+  } else if (!ressources[ressource]) {
+    unknownRessource(ressource)
   } else {
     ressources[ressource] -= quantity
     console.log(
@@ -52,8 +68,12 @@ const consume = (ressource, quantity) => {
   }
 }
 
-function refill(ressource, quantity) {
-  ressources[ressource] += quantity
+function refill({ ressource, quantity }) {
+  if (!ressources[ressource]) {
+    unknownRessource(ressource)
+  } else {
+    ressources[ressource] += quantity
+  }
 }
 
 // ACCESSORS
@@ -78,11 +98,9 @@ const getRessources = () => ressources
 
 module.exports.RESSOURCES = RESSOURCES
 
-module.exports.consumeRation = consumeRation
-module.exports.refillRation = refillRation
-module.exports.consumeElectricity = consumeElectricity
-module.exports.refillElectricity = refillElectricity 
-module.exports.killHuman = killHuman
-module.exports.killRobot = killRobot
+module.exports.consume = consume
+module.exports.refill = refill
+
+module.exports.kill = kill
 
 module.exports.getRessources = getRessources
