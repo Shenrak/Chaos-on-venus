@@ -17,15 +17,10 @@ Resources:
   Consume:
     Type: AWS::Serverless::Function
     Properties:
+      FunctionName: "consume"
       Runtime: nodejs8.10
-      Handler: routes.consume
+      Handler: lambdas/ressources.consume
       CodeUri: ./src
-      Events:
-        MyTimeApi:
-          Type: Api
-          Properties:
-            Path: /consume/{ressourceType}
-            Method: PUT
   Refill:
     Type: AWS::Serverless::Function
     Properties:
@@ -61,4 +56,16 @@ Resources:
           Type: Api
           Properties:
             Path: /kill/{beingType}
+            Method: PUT
+  Supply:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs8.10
+      Handler: routes.supply
+      CodeUri: ./src
+      Events:
+        MyTimeApi:
+          Type: Api
+          Properties:
+            Path: /supply/{beingType}
             Method: PUT

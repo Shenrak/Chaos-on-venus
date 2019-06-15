@@ -4,7 +4,9 @@ const {
   consumeElectricity,
   getHumans,
   getRobots
-} = require("../services/ressources/ressources")
+} = require("../lambdas/ressources")
+
+const { $consume } = require("../requests/ressources")
 
 module.exports.humansSupply = () => {
   for (let i = 0; i < getHumans(); i++) {
@@ -18,13 +20,16 @@ module.exports.robotsSupply = () => {
   }
 }
 
-const supply = actor => {
-  switch (actor) {
+module.exports.supply = ({ beingType }) => {
+  Console.log("Un humain mange")
+  switch (beingType) {
     case RESSOURCES.HUMAN:
-      consumeRation(1)
+      Console.log("Un humain mange")
+      $consume(beingType, 1)
       break
     case RESSOURCES.ROBOT:
-      consumeElectricity(1)
+      Console.log("Un robot se recharge")
+      $consume(beingType, 1)
       break
   }
 }

@@ -14,4 +14,4 @@ artifacts:
     - outputtemplate.yaml
 Environment:
   Variables:
-    REGION: eu-west-1
+    REGION: eu-west-3

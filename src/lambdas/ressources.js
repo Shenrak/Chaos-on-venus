@@ -44,10 +44,12 @@ const kill = beingType => {
 }
 
 const killHuman = () => {
+  Console.log("Un humain a été tué")
   consume(RESSOURCES.HUMAN, 1)
 }
 
 const killRobot = () => {
+  Console.log("Un robot a été détruit")
   consume(RESSOURCES.ROBOT, 1)
 }
 
@@ -74,6 +76,11 @@ function refill({ ressource, quantity }) {
   } else {
     ressources[ressource] += quantity
   }
+  console.log(
+    `${ressource} créées : ${quantity}. Stock de ${ressource} : ${
+      ressources[ressource]
+    }`
+  )
 }
 
 // ACCESSORS
