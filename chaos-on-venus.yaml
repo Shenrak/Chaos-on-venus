@@ -40,7 +40,7 @@ Resources:
         Fn::GetAtt:
         - LambdaExecutionRole
         - Arn
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1f7de9082b74677d93f531b915764157
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f6eec7c7733f30a3f9f0f1ffdf04e9dd
       Events:
         MyTimeApi:
           Type: Api
@@ -56,7 +56,7 @@ Resources:
         Fn::GetAtt:
         - LambdaExecutionRole
         - Arn
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1f7de9082b74677d93f531b915764157
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f6eec7c7733f30a3f9f0f1ffdf04e9dd
       Events:
         MyTimeApi:
           Type: Api
@@ -68,25 +68,25 @@ Resources:
     Properties:
       FunctionName: getRessources
       Handler: ressources-service/index.getRessources
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1f7de9082b74677d93f531b915764157
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f6eec7c7733f30a3f9f0f1ffdf04e9dd
   Consume:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: consume
       Handler: ressources-service/index.consume
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1f7de9082b74677d93f531b915764157
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f6eec7c7733f30a3f9f0f1ffdf04e9dd
   Refill:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: refill
       Handler: ressources-service/index.refill
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1f7de9082b74677d93f531b915764157
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f6eec7c7733f30a3f9f0f1ffdf04e9dd
   Kill:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: kill
       Handler: ressources-service/index.kill
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1f7de9082b74677d93f531b915764157
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f6eec7c7733f30a3f9f0f1ffdf04e9dd
   Supply:
     Type: AWS::Serverless::Function
     Properties:
@@ -96,7 +96,7 @@ Resources:
         - Arn
       FunctionName: supply
       Handler: ressources-service/index.supply
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1f7de9082b74677d93f531b915764157
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f6eec7c7733f30a3f9f0f1ffdf04e9dd
   Work:
     Type: AWS::Serverless::Function
     Properties:
@@ -106,4 +106,4 @@ Resources:
         - Arn
       FunctionName: work
       Handler: ressources-service/index.work
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1f7de9082b74677d93f531b915764157
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f6eec7c7733f30a3f9f0f1ffdf04e9dd
