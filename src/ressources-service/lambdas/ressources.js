@@ -1,11 +1,6 @@
+const { RESSOURCES } = require("../../utils/enums")
 const { notEnoughRessources, unknownRessource } = require("./exceptions")
 
-const RESSOURCES = {
-  RATION: "ration",
-  ELECTRICITY: "electricity",
-  ROBOT: "robot",
-  HUMAN: "human"
-}
 
 let ressources = {
   [RESSOURCES.RATION]: 100, // TO DEF BY CONF FILE
@@ -89,25 +84,23 @@ function refill({ ressource, quantity }) {
 
 // ACCESSORS
 
-function getRations() {
-  return ressources.rations
-}
+// function getRations() {
+//   return ressources.rations
+// }
 
-function getElectricity() {
-  return ressources.electricity
-}
+// function getElectricity() {
+//   return ressources.electricity
+// }
 
-function getRobots() {
-  return ressources.robots
-}
+// function getRobots() {
+//   return ressources.robots
+// }
 
-function getHumans() {
-  return ressources.humans
-}
+// function getHumans() {
+//   return ressources.humans
+// }
 
 const getRessources = () => ressources
-
-module.exports.RESSOURCES = RESSOURCES
 
 module.exports.consume = consume
 module.exports.refill = refill

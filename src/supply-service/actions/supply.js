@@ -13,7 +13,6 @@ module.exports.robotsSupply = () => {
     supply(RESSOURCES.ROBOT)
   }
 }
-
 const supply = ({ beingType, quantity = 1 }) => {
   let response = "empty"
   switch (beingType) {

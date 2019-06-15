@@ -1,5 +1,5 @@
+const { RESSOURCES } = require("../../utils/enums")
 const {
-  RESSOURCES,
   refillRation,
   refillElectricity,
   getHumans,
