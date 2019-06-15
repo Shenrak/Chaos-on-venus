@@ -18,7 +18,6 @@ const tryExec = (func, parameters) => {
 }
 
 exports.supply = (event, context, callback) => {
-    console.log("Supply")
   const parameters = {
     beingType: event.pathParameters.beingType,
   }
