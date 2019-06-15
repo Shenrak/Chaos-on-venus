@@ -21,16 +21,24 @@ module.exports.robotsSupply = () => {
   }
 }
 
-const supply = ({ beingType }, context, callback) => {
+const supply = async ({ beingType, quantity = 1 }) => {
+  let response = "empty"
   switch (beingType) {
     case RESSOURCES.HUMAN:
-      console.log("Un humain mange")
-      return `${$consume(beingType, 1)} - Un humain mange`
-
+      await $consume(
+        { beingType, quantity },
+        str => (response = "Un humain mange \n" + str)
+      )
+      break
     case RESSOURCES.ROBOT:
-      console.log("Un robot se recharge")
-      return `${$consume(beingType, 1)} - Un robot se recharge`
+      await $consume(
+        { beingType, quantity },
+        str => (response = "Un robot se recharge \n" + str)
+      )
+      break
   }
+  console.log(response)
+  return response
 }
 
 module.exports.supply = handleLambdaEvent(supply)

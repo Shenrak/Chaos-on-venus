@@ -33,17 +33,17 @@ const doActionAtTime = (time, action) => {
 }
 
 const consumptionElectricityRobot = () => {
-  $supply({ beingType: "robot" }, logs.push)
+  $supply({ beingType: "robot" }, (str = "") => logs.push(str))
 }
 
 const consumptionElectricityHuman = () => {
-  $consume({ ressource: "electricity", quantity: 1 }, logs.push)
+  $consume({ ressource: "electricity", quantity: 1 }, (str = "") => logs.push(str))
 }
 
 const consumptionElectricityBase = () => {
-  $consume({ ressource: "electricity", quantity: 10 }, logs.push)
+  $consume({ ressource: "electricity", quantity: 10 }, (str = "") => logs.push(str))
 }
 
 const consumptionRationHuman = () => {
-  $supply({ beingType: "human" }, logs.push)
+  $supply({ beingType: "human" }, (str = "") => logs.push(str))
 }

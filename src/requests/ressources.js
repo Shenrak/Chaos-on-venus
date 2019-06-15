@@ -3,8 +3,8 @@ var lambda = new aws.Lambda({
   region: "eu-west-3" //change to your region
 })
 
-exports.$consume = ({ ressource, quantity }, callback) => {
-  lambda.invoke(
+exports.$consume = async ({ ressource, quantity }, callback) => {
+  const result = await lambda.invoke(
     {
       FunctionName: "consume",
       Payload: JSON.stringify({ ressource, quantity })
@@ -15,11 +15,12 @@ exports.$consume = ({ ressource, quantity }, callback) => {
       console.log(error ? error : "", JSON.parse(data.Payload).response)
       callback(error ? error : "", JSON.parse(data.Payload).response)
     }
-  )
+  ).promise()
+  return result
 }
 
-exports.$refill = ({ ressource, quantity }, callback) => {
-  lambda.invoke(
+exports.$refill = async ({ ressource, quantity }, callback) => {
+  await lambda.invoke(
     {
       FunctionName: "refill",
       Payload: JSON.stringify({ ressource, quantity })
@@ -30,11 +31,11 @@ exports.$refill = ({ ressource, quantity }, callback) => {
       console.log(error ? error : "", JSON.parse(data.Payload).response)
       callback(error ? error : "", JSON.parse(data.Payload).response)
     }
-  )
+  ).promise()
 }
 
-exports.$kill = ({ beingType }, callback) => {
-  lambda.invoke(
+exports.$kill = async ({ beingType }, callback) => {
+  await lambda.invoke(
     {
       FunctionName: "kill",
       Payload: JSON.stringify({ beingType })
@@ -45,11 +46,11 @@ exports.$kill = ({ beingType }, callback) => {
       console.log(error ? error : "", JSON.parse(data.Payload).response)
       callback(error ? error : "", JSON.parse(data.Payload).response)
     }
-  )
+  ).promise()
 }
 
-exports.$supply = ({ beingType }, callback) => {
-  lambda.invoke(
+exports.$supply = async ({ beingType }, callback) => {
+  await lambda.invoke(
     {
       FunctionName: "supply",
       Payload: JSON.stringify({ beingType })
@@ -57,8 +58,9 @@ exports.$supply = ({ beingType }, callback) => {
     },
     function(error, data) {
       // console.log("supply " + beingType)
-      console.log(error ? error : "", JSON.parse(data.Payload).response)
-      callback(error ? error : "", JSON.parse(data.Payload).response)
+      const response = data.Payload ? JSON.parse(data.Payload).response : "{}"
+      console.log(error ? error : "", response)
+      callback(error ? error : "", response)
     }
-  )
+  ).promise()
 }
