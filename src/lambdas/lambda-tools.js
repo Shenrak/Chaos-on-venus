@@ -1,6 +1,14 @@
 
-const handleLambdaEvent = handler => (event, context, callBack) => {
-  const response = handler(event)
+const handleLambdaEvent = handler => async (event, context, callBack) => {
+  let response
+
+  if(handler.then) {
+    response = await handler(event)
+  }
+  else {
+    response = handler(event)
+  }
+  
   callBack(null, { response })
 }
 
