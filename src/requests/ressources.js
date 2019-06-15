@@ -12,8 +12,9 @@ exports.$consume = ({ ressource, quantity }, callback) => {
     },
     function(error, data) {
       // console.log("consume " + JSON.stringify(ressource))
-      console.log(error ? error : "", JSON.parse(data.Payload).response)
-      callback(error ? error : "", JSON.parse(data.Payload).response)
+      const response = data ? JSON.parse(data.Payload).response : "{}"
+      console.log(error ? error : "", response)
+      callback(error ? error : "", response)
     }
   )
 }
@@ -27,8 +28,9 @@ exports.$refill = ({ ressource, quantity }, callback) => {
     },
     function(error, data) {
       // console.log("refill " + ressource)
-      console.log(error ? error : "", JSON.parse(data.Payload).response)
-      callback(error ? error : "", JSON.parse(data.Payload).response)
+      const response = data ? JSON.parse(data.Payload).response : "{}"
+      console.log(error ? error : "", response)
+      callback(error ? error : "", response)
     }
   )
 }
@@ -42,8 +44,9 @@ exports.$kill = ({ beingType }, callback) => {
     },
     function(error, data) {
       // console.log("kill " + beingType)
-      console.log(error ? error : "", JSON.parse(data.Payload).response)
-      callback(error ? error : "", JSON.parse(data.Payload).response)
+      const response = data ? JSON.parse(data.Payload).response : "{}"
+      console.log(error ? error : "", response)
+      callback(error ? error : "", response)
     }
   )
 }
