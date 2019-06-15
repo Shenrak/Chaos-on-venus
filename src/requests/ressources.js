@@ -57,7 +57,7 @@ exports.$supply = ({ beingType }, callback) => {
     },
     function(error, data) {
       // console.log("supply " + beingType)
-      const response = data.Payload ? JSON.parse(data.Payload).response : "{}"
+      const response = data ? JSON.parse(data.Payload).response : "{}"
       console.log(error ? error : "", response)
       callback(error ? error : "", response)
     }
