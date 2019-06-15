@@ -33,11 +33,9 @@ const refillElectricity = quantity => {
 const kill = ({ beingType }) => {
   switch (beingType) {
     case RESSOURCES.HUMAN:
-      killHuman()
-      break
+      return killHuman()
     case RESSOURCES.ROBOT:
-      killRobot()
-      break
+      return killRobot()
     default:
       break
   }

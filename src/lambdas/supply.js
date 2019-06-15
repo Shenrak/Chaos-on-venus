@@ -20,17 +20,17 @@ module.exports.robotsSupply = () => {
   }
 }
 
-module.exports.supply = ({ beingType }) => {
+module.exports.supply = ({ beingType }, context, callback) => {
   switch (beingType) {
     case RESSOURCES.HUMAN:
       console.log("Un humain mange")
       $consume(beingType, 1)
-      return ("un humain mange")
+      callback(null, "Un humain mange")
       break
     case RESSOURCES.ROBOT:
       console.log("Un robot se recharge")
       $consume(beingType, 1)
-      return ("un robot mange")
+      callback(null, "Un robot se recharge")
       break
   }
 }

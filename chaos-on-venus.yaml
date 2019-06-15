@@ -7,7 +7,7 @@ Resources:
     Properties:
       Runtime: nodejs8.10
       Handler: routes.getRessources
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f27264d98220784eddeec8580e05ebdd
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/46d42d20c5e1f0ecb9f50b350a4cc4c9
       Events:
         MyTimeApi:
           Type: Api
@@ -19,7 +19,7 @@ Resources:
     Properties:
       Runtime: nodejs8.10
       Handler: routes.day
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f27264d98220784eddeec8580e05ebdd
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/46d42d20c5e1f0ecb9f50b350a4cc4c9
       Events:
         MyTimeApi:
           Type: Api
@@ -32,25 +32,25 @@ Resources:
       FunctionName: consume
       Runtime: nodejs8.10
       Handler: lambdas/ressources.consume
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f27264d98220784eddeec8580e05ebdd
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/46d42d20c5e1f0ecb9f50b350a4cc4c9
   Refill:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: refill
       Runtime: nodejs8.10
       Handler: lambdas/ressources.refill
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f27264d98220784eddeec8580e05ebdd
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/46d42d20c5e1f0ecb9f50b350a4cc4c9
   Kill:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: kill
       Runtime: nodejs8.10
       Handler: lambdas/ressources.kill
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f27264d98220784eddeec8580e05ebdd
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/46d42d20c5e1f0ecb9f50b350a4cc4c9
   Supply:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: supply
       Runtime: nodejs8.10
       Handler: lambdas/supply.supply
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f27264d98220784eddeec8580e05ebdd
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/46d42d20c5e1f0ecb9f50b350a4cc4c9

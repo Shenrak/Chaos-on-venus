@@ -12,7 +12,7 @@ exports.$consume = async ({ ressource, quantity }) => {
     },
     function(error, data) {
       // console.log("consume " + JSON.stringify(ressource))
-      console.log(error ? error : "", data)
+      console.log(error ? error : "", data.Payload.Response)
     }
   )
 }
@@ -26,7 +26,7 @@ exports.$refill = async ({ ressource, quantity }) => {
     },
     function(error, data) {
       // console.log("refill " + ressource)
-      console.log(error ? error : "", data)
+      console.log(error ? error : "", data.Payload.Response)
     }
   )
 }
@@ -40,7 +40,7 @@ exports.$kill = async ({ beingType }) => {
     },
     function(error, data) {
       // console.log("kill " + beingType)
-      console.log(error ? error : "", data)
+      console.log(error ? error : "", data.Payload)
     }
   )
 }
@@ -54,7 +54,7 @@ exports.$supply = async ({ beingType }) => {
     },
     function(error, data) {
       // console.log("supply " + beingType)
-      console.log(error ? error : "", data)
+      console.log(error ? error : "", data.Payload)
     }
   )
 }
