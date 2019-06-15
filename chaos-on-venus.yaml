@@ -7,7 +7,7 @@ Resources:
     Properties:
       Runtime: nodejs8.10
       Handler: routes.getRessources
-      CodeUri: ./src
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f27264d98220784eddeec8580e05ebdd
       Events:
         MyTimeApi:
           Type: Api
@@ -19,7 +19,7 @@ Resources:
     Properties:
       Runtime: nodejs8.10
       Handler: routes.day
-      CodeUri: ./src
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f27264d98220784eddeec8580e05ebdd
       Events:
         MyTimeApi:
           Type: Api
@@ -29,28 +29,28 @@ Resources:
   Consume:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: "consume"
+      FunctionName: consume
       Runtime: nodejs8.10
       Handler: lambdas/ressources.consume
-      CodeUri: ./src
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f27264d98220784eddeec8580e05ebdd
   Refill:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: "refill"
+      FunctionName: refill
       Runtime: nodejs8.10
       Handler: lambdas/ressources.refill
-      CodeUri: ./src
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f27264d98220784eddeec8580e05ebdd
   Kill:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: "kill"
+      FunctionName: kill
       Runtime: nodejs8.10
       Handler: lambdas/ressources.kill
-      CodeUri: ./src
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f27264d98220784eddeec8580e05ebdd
   Supply:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: "supply"
+      FunctionName: supply
       Runtime: nodejs8.10
       Handler: lambdas/supply.supply
-      CodeUri: ./src
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f27264d98220784eddeec8580e05ebdd

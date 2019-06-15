@@ -1,0 +1,2 @@
+aws cloudformation package --template-file template.yaml --output-template-file chaos-on-venus.yaml --s3-bucket ppd-lambda-deployment-artifacts-123456789012
+aws cloudformation deploy --template-file chaos-on-venus.yaml --stack-name ppd-lambda-pipeline-stack --capabilities CAPABILITY_IAM

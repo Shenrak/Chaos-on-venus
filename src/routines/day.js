@@ -1,4 +1,6 @@
-const main = () => {
+const { $consume, $supply } = require("../requests/ressources")
+
+exports.day = () => {
   doActionAtTime(1, () => {
     consumptionElectricityRobot()
   })
@@ -21,24 +23,24 @@ const main = () => {
 }
 
 const doActionAtTime = (time, action) => {
-  let timeMS = time * 1000
+  let timeMS = time * 10
   setTimeout(() => {
     action()
   }, timeMS)
 }
 
 const consumptionElectricityRobot = () => {
-  /** TODO CALL LAMBDA **/
+  $supply({ beingType: "robot" })
 }
 
 const consumptionElectricityHuman = () => {
-  /** TODO CALL LAMBDA **/
+  $consume({ ressource: "electricity", quantity: 1 })
 }
 
 const consumptionElectricityBase = () => {
-  /** TODO CALL LAMBDA **/
+  $consume({ ressource: "electricity", quantity: 10 })
 }
 
 const consumptionRationHuman = () => {
-  /** TODO CALL LAMBDA **/
+  $supply({ beingType: "human" })
 }

@@ -21,15 +21,16 @@ module.exports.robotsSupply = () => {
 }
 
 module.exports.supply = ({ beingType }) => {
-  Console.log("Un humain mange")
   switch (beingType) {
     case RESSOURCES.HUMAN:
-      Console.log("Un humain mange")
+      console.log("Un humain mange")
       $consume(beingType, 1)
+      return ("un humain mange")
       break
     case RESSOURCES.ROBOT:
-      Console.log("Un robot se recharge")
+      console.log("Un robot se recharge")
       $consume(beingType, 1)
+      return ("un robot mange")
       break
   }
 }

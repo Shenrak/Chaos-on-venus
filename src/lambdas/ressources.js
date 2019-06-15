@@ -30,7 +30,7 @@ const refillElectricity = quantity => {
   refill(RESSOURCES.ELECTRICITY, quantity)
 }
 
-const kill = beingType => {
+const kill = ({ beingType }) => {
   switch (beingType) {
     case RESSOURCES.HUMAN:
       killHuman()
@@ -44,12 +44,12 @@ const kill = beingType => {
 }
 
 const killHuman = () => {
-  Console.log("Un humain a été tué")
+  console.log("Un humain a été tué")
   consume(RESSOURCES.HUMAN, 1)
 }
 
 const killRobot = () => {
-  Console.log("Un robot a été détruit")
+  console.log("Un robot a été détruit")
   consume(RESSOURCES.ROBOT, 1)
 }
 
@@ -66,7 +66,9 @@ const consume = ({ ressource, quantity }) => {
         ressources[ressource]
       }`
     )
-    return ressources[ressource]
+    return `${ressource} consommées : ${quantity}. ${ressource} restantes : ${
+      ressources[ressource]
+    }`
   }
 }
 
@@ -81,6 +83,10 @@ function refill({ ressource, quantity }) {
       ressources[ressource]
     }`
   )
+
+  return `${ressource} créées : ${quantity}. Stock de ${ressource} : ${
+    ressources[ressource]
+  }`
 }
 
 // ACCESSORS
