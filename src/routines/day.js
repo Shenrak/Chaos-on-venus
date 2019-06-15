@@ -1,5 +1,7 @@
 const { $consume, $supply } = require("../requests/ressources")
 
+let logs = []
+
 exports.day = () => {
   doActionAtTime(1, () => {
     consumptionElectricityRobot()
@@ -20,6 +22,7 @@ exports.day = () => {
   doActionAtTime(19, () => {
     consumptionRationHuman()
   })
+  return logs.join("\n")
 }
 
 const doActionAtTime = (time, action) => {
@@ -30,17 +33,17 @@ const doActionAtTime = (time, action) => {
 }
 
 const consumptionElectricityRobot = () => {
-  $supply({ beingType: "robot" })
+  $supply({ beingType: "robot" }, logs.push)
 }
 
 const consumptionElectricityHuman = () => {
-  $consume({ ressource: "electricity", quantity: 1 })
+  $consume({ ressource: "electricity", quantity: 1 }, logs.push)
 }
 
 const consumptionElectricityBase = () => {
-  $consume({ ressource: "electricity", quantity: 10 })
+  $consume({ ressource: "electricity", quantity: 10 }, logs.push)
 }
 
 const consumptionRationHuman = () => {
-  $supply({ beingType: "human" })
+  $supply({ beingType: "human" }, logs.push)
 }

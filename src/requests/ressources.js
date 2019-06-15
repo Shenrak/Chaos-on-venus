@@ -3,8 +3,8 @@ var lambda = new aws.Lambda({
   region: "eu-west-3" //change to your region
 })
 
-exports.$consume = async ({ ressource, quantity }) => {
-  await lambda.invoke(
+exports.$consume = ({ ressource, quantity }, callback) => {
+  lambda.invoke(
     {
       FunctionName: "consume",
       Payload: JSON.stringify({ ressource, quantity })
@@ -12,13 +12,14 @@ exports.$consume = async ({ ressource, quantity }) => {
     },
     function(error, data) {
       // console.log("consume " + JSON.stringify(ressource))
-      console.log(error ? error : "", data.Payload.Response)
+      console.log(error ? error : "", JSON.parse(data.Payload).response)
+      callback(error ? error : "", JSON.parse(data.Payload).response)
     }
   )
 }
 
-exports.$refill = async ({ ressource, quantity }) => {
-  await lambda.invoke(
+exports.$refill = ({ ressource, quantity }, callback) => {
+  lambda.invoke(
     {
       FunctionName: "refill",
       Payload: JSON.stringify({ ressource, quantity })
@@ -26,13 +27,14 @@ exports.$refill = async ({ ressource, quantity }) => {
     },
     function(error, data) {
       // console.log("refill " + ressource)
-      console.log(error ? error : "", data.Payload.Response)
+      console.log(error ? error : "", JSON.parse(data.Payload).response)
+      callback(error ? error : "", JSON.parse(data.Payload).response)
     }
   )
 }
 
-exports.$kill = async ({ beingType }) => {
-  await lambda.invoke(
+exports.$kill = ({ beingType }, callback) => {
+  lambda.invoke(
     {
       FunctionName: "kill",
       Payload: JSON.stringify({ beingType })
@@ -40,13 +42,14 @@ exports.$kill = async ({ beingType }) => {
     },
     function(error, data) {
       // console.log("kill " + beingType)
-      console.log(error ? error : "", data.Payload)
+      console.log(error ? error : "", JSON.parse(data.Payload).response)
+      callback(error ? error : "", JSON.parse(data.Payload).response)
     }
   )
 }
 
-exports.$supply = async ({ beingType }) => {
-  await lambda.invoke(
+exports.$supply = ({ beingType }, callback) => {
+  lambda.invoke(
     {
       FunctionName: "supply",
       Payload: JSON.stringify({ beingType })
@@ -54,7 +57,8 @@ exports.$supply = async ({ beingType }) => {
     },
     function(error, data) {
       // console.log("supply " + beingType)
-      console.log(error ? error : "", data.Payload)
+      console.log(error ? error : "", JSON.parse(data.Payload).response)
+      callback(error ? error : "", JSON.parse(data.Payload).response)
     }
   )
 }
