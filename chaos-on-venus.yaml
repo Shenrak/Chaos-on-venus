@@ -7,7 +7,7 @@ Resources:
     Properties:
       Runtime: nodejs8.10
       Handler: routine-service/index.day
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/9505fd170699e86606302de5fd4b2acd
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/c28a24df3154338ad863766bfe204d7b
       Events:
         MyTimeApi:
           Type: Api
@@ -19,7 +19,7 @@ Resources:
     Properties:
       Runtime: nodejs8.10
       Handler: ressources-service/index.getRessources
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/9505fd170699e86606302de5fd4b2acd
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/c28a24df3154338ad863766bfe204d7b
       Events:
         MyTimeApi:
           Type: Api
@@ -32,25 +32,25 @@ Resources:
       FunctionName: consume
       Runtime: nodejs8.10
       Handler: ressources-service/index.consume
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/9505fd170699e86606302de5fd4b2acd
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/c28a24df3154338ad863766bfe204d7b
   Refill:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: refill
       Runtime: nodejs8.10
       Handler: ressources-service/index.refill
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/9505fd170699e86606302de5fd4b2acd
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/c28a24df3154338ad863766bfe204d7b
   Kill:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: kill
       Runtime: nodejs8.10
       Handler: ressources-service/index.kill
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/9505fd170699e86606302de5fd4b2acd
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/c28a24df3154338ad863766bfe204d7b
   Supply:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: supply
       Runtime: nodejs8.10
       Handler: ressources-service/index.supply
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/9505fd170699e86606302de5fd4b2acd
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/c28a24df3154338ad863766bfe204d7b

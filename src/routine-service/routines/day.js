@@ -28,7 +28,7 @@ const day = async () => {
 
 const doActionAtTime = (time, actions) => {
   return new Promise((resolve) => {
-    let timeMS = time * 10
+    let timeMS = time * 100
     setTimeout(() => {
       console.log("Starting actions")
       Promise.all(actions.map(action => action())).then(values => {
