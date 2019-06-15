@@ -1,7 +1,5 @@
-const { handleApiEvent } = require("../event-handlers/api-event-handler")
+const { handleApiEvent } = require("./api-event-handler")
 const { $consume, $supply } = require("../requests/ressources")
-
-let logs = []
 
 const day = async () => {
   console.log("Starting daily routine")

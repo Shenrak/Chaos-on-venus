@@ -1,13 +1,10 @@
 const {
   RESSOURCES,
-  consumeRation,
-  consumeElectricity,
   getHumans,
   getRobots
 } = require("../lambdas/ressources")
-const { handleLambdaEvent } = require("../event-handlers/lambda-event-handler")
-
-const { $consume } = require("../requests/ressources")
+const { handleLambdaEvent } = require("./lambda-event-handler")
+const { $consume } = require("../../routine-service/requests/ressources")
 
 module.exports.humansSupply = () => {
   for (let i = 0; i < getHumans(); i++) {

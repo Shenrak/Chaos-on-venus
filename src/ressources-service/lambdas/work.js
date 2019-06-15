@@ -4,7 +4,7 @@ const {
   refillElectricity,
   getHumans,
   getRobots
-} = require("../services/ressources/ressources")
+} = require("./ressources")
 
 module.exports.humansWork = () => {
   for (let i = 0; i < getHumans(); i++) {

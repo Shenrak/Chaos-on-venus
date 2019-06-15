@@ -1,6 +1,6 @@
 const { notEnoughRessources, unknownRessource } = require("./exceptions")
-const { handleLambdaEvent } = require("../event-handlers/lambda-event-handler")
-const { handleApiEvent } = require("../event-handlers/api-event-handler")
+const { handleLambdaEvent } = require("./lambda-event-handler")
+const { handleApiEvent } = require("../../routine-service/routines/api-event-handler")
 
 const RESSOURCES = {
   RATION: "ration",

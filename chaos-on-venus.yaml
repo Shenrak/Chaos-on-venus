@@ -2,57 +2,55 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: Outputs the time
 Resources:
-  GetRessources:
-    Type: AWS::Serverless::Function
-    Properties:
-      Runtime: nodejs8.10
-      Handler: routes.getRessources
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1133ce278042dc20e5fbd7902ac59985
-      Events:
-        MyTimeApi:
-          Type: Api
-          Properties:
-            Path: /ressource
-            Method: GET
   RoutineDay:
     Type: AWS::Serverless::Function
     Properties:
       Runtime: nodejs8.10
-      Handler: routes.day
-      Timeout: 60
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1133ce278042dc20e5fbd7902ac59985
+      Handler: routine-service/routines/day.day
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/db77af54edcada4608e25571abac641f
       Events:
         MyTimeApi:
           Type: Api
           Properties:
             Path: /day
             Method: GET
+  GetRessources:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs8.10
+      Handler: ressources-service/lambdas/ressources.getRessources
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/db77af54edcada4608e25571abac641f
+      Events:
+        MyTimeApi:
+          Type: Api
+          Properties:
+            Path: /ressource
+            Method: GET
   Consume:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: consume
       Runtime: nodejs8.10
-      Handler: lambdas/ressources.consume
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1133ce278042dc20e5fbd7902ac59985
+      Handler: ressources-service/lambdas/ressources.consume
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/db77af54edcada4608e25571abac641f
   Refill:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: refill
       Runtime: nodejs8.10
-      Handler: lambdas/ressources.refill
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1133ce278042dc20e5fbd7902ac59985
+      Handler: ressources-service/lambdas/ressources.refill
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/db77af54edcada4608e25571abac641f
   Kill:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: kill
       Runtime: nodejs8.10
-      Handler: lambdas/ressources.kill
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1133ce278042dc20e5fbd7902ac59985
+      Handler: ressources-service/lambdas/ressources.kill
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/db77af54edcada4608e25571abac641f
   Supply:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: supply
-      Timeout: 60
       Runtime: nodejs8.10
-      Handler: lambdas/supply.supply
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1133ce278042dc20e5fbd7902ac59985
+      Handler: ressources-service/lambdas/supply.supply
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/db77af54edcada4608e25571abac641f

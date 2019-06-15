@@ -2,23 +2,11 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: Outputs the time
 Resources:
-  GetRessources:
-    Type: AWS::Serverless::Function
-    Properties:
-      Runtime: nodejs8.10
-      Handler: lambdas/ressources.getRessources
-      CodeUri: ./src
-      Events:
-        MyTimeApi:
-          Type: Api
-          Properties:
-            Path: /ressource
-            Method: GET
   RoutineDay:
     Type: AWS::Serverless::Function
     Properties:
       Runtime: nodejs8.10
-      Handler: routines/day.day
+      Handler: routine-service/routines/day.day
       CodeUri: ./src
       Events:
         MyTimeApi:
@@ -26,31 +14,44 @@ Resources:
           Properties:
             Path: /day
             Method: GET
+
+  GetRessources:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs8.10
+      Handler: ressources-service/lambdas/ressources.getRessources
+      CodeUri: ./src
+      Events:
+        MyTimeApi:
+          Type: Api
+          Properties:
+            Path: /ressource
+            Method: GET
   Consume:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: "consume"
       Runtime: nodejs8.10
-      Handler: lambdas/ressources.consume
+      Handler: ressources-service/lambdas/ressources.consume
       CodeUri: ./src
   Refill:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: "refill"
       Runtime: nodejs8.10
-      Handler: lambdas/ressources.refill
+      Handler: ressources-service/lambdas/ressources.refill
       CodeUri: ./src
   Kill:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: "kill"
       Runtime: nodejs8.10
-      Handler: lambdas/ressources.kill
+      Handler: ressources-service/lambdas/ressources.kill
       CodeUri: ./src
   Supply:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: "supply"
       Runtime: nodejs8.10
-      Handler: lambdas/supply.supply
+      Handler: ressources-service/lambdas/supply.supply
       CodeUri: ./src
