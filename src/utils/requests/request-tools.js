@@ -18,17 +18,17 @@ const invokeLambda = ({FunctionName, Payload, ...props}) => {
 }
 
 const lambdaInvokeResponseHandler = (resolve, reject) => (error, data) => {
-  if(!data) {
-    reject(error)
+  if(data == null || data == undefined) {
+    return reject(error)
   }
 
   const payload = JSON.parse(data.Payload || "{}")
   if(payload.errorMessage) {
     console.log("RESPONSE ERROR",payload)
-    reject(payload.errorMessage)
+    return reject(payload.errorMessage)
   }
 
-  resolve(payload.response);
+  return resolve(payload.response);
 }
 
 module.exports.invokeLambda = invokeLambda
