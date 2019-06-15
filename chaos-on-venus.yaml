@@ -7,7 +7,7 @@ Resources:
     Properties:
       Runtime: nodejs8.10
       Handler: routes.getRessources
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/dbc8f7d09384758a62997830197d9201
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/366752bb1fa419fbf7604a46950a2ca5
       Events:
         MyTimeApi:
           Type: Api
@@ -19,7 +19,7 @@ Resources:
     Properties:
       Runtime: nodejs8.10
       Handler: routes.day
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/dbc8f7d09384758a62997830197d9201
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/366752bb1fa419fbf7604a46950a2ca5
       Events:
         MyTimeApi:
           Type: Api
@@ -33,6 +33,7 @@ Resources:
       Runtime: nodejs8.10
       Handler: lambdas/ressources.consume
       CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/dbc8f7d09384758a62997830197d9201
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/366752bb1fa419fbf7604a46950a2ca5
   Refill:
     Type: AWS::Serverless::Function
     Properties:
@@ -40,6 +41,7 @@ Resources:
       Runtime: nodejs8.10
       Handler: lambdas/ressources.refill
       CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/dbc8f7d09384758a62997830197d9201
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/366752bb1fa419fbf7604a46950a2ca5
   Kill:
     Type: AWS::Serverless::Function
     Properties:
@@ -47,6 +49,7 @@ Resources:
       Runtime: nodejs8.10
       Handler: lambdas/ressources.kill
       CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/dbc8f7d09384758a62997830197d9201
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/366752bb1fa419fbf7604a46950a2ca5
   Supply:
     Type: AWS::Serverless::Function
     Properties:
@@ -54,3 +57,4 @@ Resources:
       Runtime: nodejs8.10
       Handler: lambdas/supply.supply
       CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/dbc8f7d09384758a62997830197d9201
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/366752bb1fa419fbf7604a46950a2ca5

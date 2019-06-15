@@ -5,6 +5,7 @@ const {
   getHumans,
   getRobots
 } = require("../lambdas/ressources")
+const { handleLambdaEvent } = require("./lambda-tools")
 
 const { $consume } = require("../requests/ressources")
 
@@ -20,17 +21,16 @@ module.exports.robotsSupply = () => {
   }
 }
 
-module.exports.supply = ({ beingType }, context, callback) => {
+const supply = ({ beingType }, context, callback) => {
   switch (beingType) {
     case RESSOURCES.HUMAN:
       console.log("Un humain mange")
-      $consume(beingType, 1)
-      callback(null, "Un humain mange")
-      break
+      return `${$consume(beingType, 1)} - Un humain mange`
+
     case RESSOURCES.ROBOT:
       console.log("Un robot se recharge")
-      $consume(beingType, 1)
-      callback(null, "Un robot se recharge")
-      break
+      return `${$consume(beingType, 1)} - Un robot se recharge`
   }
 }
+
+module.exports.supply = handleLambdaEvent(supply)
