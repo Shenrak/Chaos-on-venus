@@ -1,3 +1,4 @@
 node_modules
-node_modules
 .aws-sam
+
+./chaos-on-venus.yaml
