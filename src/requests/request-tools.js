@@ -1,3 +1,8 @@
+const aws = require("aws-sdk")
+const lambda = new aws.Lambda({
+  region: "eu-west-3" //change to your region
+})
+
 const invokeLambda = ({FunctionName, Payload, ...props}) => {
   return new Promise(function(resolve, reject) {
     lambda.invoke(

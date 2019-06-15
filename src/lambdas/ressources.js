@@ -9,26 +9,26 @@ const RESSOURCES = {
 }
 
 let ressources = {
-  [RESSOURCES.RATION]: 2, // TO DEF BY CONF FILE
+  [RESSOURCES.RATION]: 100, // TO DEF BY CONF FILE
   [RESSOURCES.ELECTRICITY]: 100, // TO DEF BY CONF FILE
   [RESSOURCES.ROBOT]: 20, // TO DEF BY CONF FILE
   [RESSOURCES.HUMAN]: 5 // TO DEF BY CONF FILE
 }
 
 const consumeRation = quantity => {
-  consume(RESSOURCES.RATION, quantity)
+  consume({ressource: RESSOURCES.RATION, quantity})
 }
 
 const refillRation = quantity => {
-  refill(RESSOURCES.RATION, quantity)
+  refill({ressource: RESSOURCES.RATION, quantity})
 }
 
 const consumeElectricity = quantity => {
-  consume(RESSOURCES.ELECTRICITY, quantity)
+  consume({ressource: RESSOURCES.ELECTRICITY, quantity})
 }
 
 const refillElectricity = quantity => {
-  refill(RESSOURCES.ELECTRICITY, quantity)
+  refill({ressource: RESSOURCES.ELECTRICITY, quantity})
 }
 
 const kill = ({ beingType }) => {
@@ -52,8 +52,13 @@ const killRobot = () => {
   consume(RESSOURCES.ROBOT, 1)
 }
 
-const consume = ({ ressource, quantity }) => {
-  // console.log(ressource, quantity)
+const consume = (obj) => {
+  const {
+    quantity,
+    ressource
+  } = JSON.parse(obj)
+  
+  console.log(`Consuming ${quantity} ${ressource}`)
   if (ressources[ressource] - quantity < 0) {
     notEnoughRessources(ressource)
   } else if (!ressources[ressource]) {

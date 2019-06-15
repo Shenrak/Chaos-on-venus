@@ -2,48 +2,58 @@ const { $consume, $supply } = require("../requests/ressources")
 
 let logs = []
 
-exports.day = () => {
-  doActionAtTime(1, () => {
-    consumptionElectricityRobot()
-  })
-  doActionAtTime(9, () => {
-    consumptionElectricityHuman()
-    consumptionElectricityRobot()
-  })
-  doActionAtTime(10, () => {
-    consumptionRationHuman()
-  })
-  doActionAtTime(12, () => {
-    consumptionElectricityBase()
-  })
-  doActionAtTime(17, () => {
-    consumptionElectricityRobot()
-  })
-  doActionAtTime(19, () => {
-    consumptionRationHuman()
-  })
+exports.day = async () => {
+  console.log("Starting daily routine")
+
+  const routine = [
+    doActionAtTime(1, [
+      consumptionElectricityRobot
+    ]),
+    doActionAtTime(9, [
+      consumptionElectricityHuman,
+      consumptionElectricityRobot
+    ]),
+    doActionAtTime(10, [
+      consumptionRationHuman
+    ]),
+    doActionAtTime(12, [
+      consumptionElectricityBase
+    ]),
+    doActionAtTime(17, [
+      consumptionElectricityRobot
+    ]),
+    doActionAtTime(19, [
+      consumptionRationHuman
+    ])
+  ]
+
+  await Promise.all(routine).then(values => {console.log("values", values); logs.push(values); return values})
+  console.log("End of the daily routine")
   return logs.join("\n")
 }
 
-const doActionAtTime = (time, action) => {
-  let timeMS = time * 10
-  setTimeout(() => {
-    action()
-  }, timeMS)
+const doActionAtTime = (time, actions) => {
+  return new Promise(() => {
+    let timeMS = time * 10
+    setTimeout(() => {
+      console.log("Starting actions")
+      Promise.all(actions.map(action => action())).then(values => {console.log("ACTIONS", values); Promise.resolve(values)})
+    }, timeMS)
+  })
 }
 
 const consumptionElectricityRobot = () => {
-  $supply({ beingType: "robot" }, (str = "") => logs.push(str))
+  return $supply({ beingType: "robot" })
 }
 
 const consumptionElectricityHuman = () => {
-  $consume({ ressource: "electricity", quantity: 1 }, (str = "") => logs.push(str))
+  return $consume({ ressource: "electricity", quantity: 1 })
 }
 
 const consumptionElectricityBase = () => {
-  $consume({ ressource: "electricity", quantity: 10 }, (str = "") => logs.push(str))
+  return $consume({ ressource: "electricity", quantity: 10 })
 }
 
 const consumptionRationHuman = () => {
-  $supply({ beingType: "human" }, (str = "") => logs.push(str))
+  return $supply({ beingType: "human" })
 }

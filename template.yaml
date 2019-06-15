@@ -19,6 +19,7 @@ Resources:
     Properties:
       Runtime: nodejs8.10
       Handler: routes.day
+      Timeout: 60
       CodeUri: ./src
       Events:
         MyTimeApi:
@@ -51,6 +52,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: "supply"
+      Timeout: 60
       Runtime: nodejs8.10
       Handler: lambdas/supply.supply
       CodeUri: ./src

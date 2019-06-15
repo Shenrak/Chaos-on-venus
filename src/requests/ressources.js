@@ -1,10 +1,7 @@
-var aws = require("aws-sdk")
-const { invokeLambda, lambdaInvokeResponseHandler } = require("./request-tools")
-var lambda = new aws.Lambda({
-  region: "eu-west-3" //change to your region
-})
 
-exports.$consume = ({ ressource, quantity }, callback) => {
+const { invokeLambda } = require("./request-tools")
+
+exports.$consume = ({ ressource, quantity }) => {
   const result = invokeLambda({
     FunctionName: "consume",
     Payload: JSON.stringify({ ressource, quantity })
@@ -13,7 +10,7 @@ exports.$consume = ({ ressource, quantity }, callback) => {
   return result
 }
 
-exports.$refill = ({ ressource, quantity }, callback) => {
+exports.$refill = ({ ressource, quantity }) => {
   const result = invokeLambda({
     FunctionName: "refill",
     Payload: JSON.stringify({ ressource, quantity })
@@ -22,7 +19,7 @@ exports.$refill = ({ ressource, quantity }, callback) => {
   return result
 }
 
-exports.$kill = ({ beingType }, callback) => {
+exports.$kill = ({ beingType }) => {
   const result = invokeLambda({
     FunctionName: "kill",
     Payload: JSON.stringify({ beingType })
@@ -31,7 +28,7 @@ exports.$kill = ({ beingType }, callback) => {
   return result
 }
 
-exports.$supply = ({ beingType }, callback) => {
+exports.$supply = ({ beingType }) => {
   const result = invokeLambda({
     FunctionName: "supply",
     Payload: JSON.stringify({ beingType })
