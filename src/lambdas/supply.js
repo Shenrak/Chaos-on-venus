@@ -5,7 +5,7 @@ const {
   getHumans,
   getRobots
 } = require("../lambdas/ressources")
-const { handleLambdaEvent } = require("./lambda-tools")
+const { handleLambdaEvent } = require("../event-handlers/lambda-event-handler")
 
 const { $consume } = require("../requests/ressources")
 
@@ -28,9 +28,19 @@ const supply = ({ beingType, quantity = 1 }) => {
       response = $consume({ ressource: RESSOURCES.RATION, quantity })
       break
     case RESSOURCES.ROBOT:
-      response = $consume({ ressource: RESSOURCES.ELECTRICITY, quantity }).Payload
+      response = $consume({ ressource: RESSOURCES.ELECTRICITY, quantity })
       break
   }
+
+  //   if(!response.then) {
+  //     console.log("NO RESPONSE.THEN",response)
+  //   } else{
+
+  //   return response.then(res => {
+  //     console.log("response.then", res)
+  //     return res.Payload
+  //   })
+  // }
   return response
 }
 

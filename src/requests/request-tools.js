@@ -8,7 +8,7 @@ const invokeLambda = ({FunctionName, Payload, ...props}) => {
     lambda.invoke(
       {
         FunctionName,
-        Payload: JSON.stringify(Payload),
+        Payload: typeof Payload === "string" ? Payload : JSON.stringify(Payload),
         ...props,
         // InvocationType: 'RequestReponse'
       },
@@ -22,13 +22,13 @@ const lambdaInvokeResponseHandler = (resolve, reject) => (error, data) => {
     reject(error)
   }
 
-  const response = JSON.parse(data.Payload || "{}")
-  if(response.errorMessage) {
-    console.log("RESPONSE ERROR",response)
-    reject(response.errorMessage)
+  const payload = JSON.parse(data.Payload || "{}")
+  if(payload.errorMessage) {
+    console.log("RESPONSE ERROR",payload)
+    reject(payload.errorMessage)
   }
 
-  resolve(response.result);
+  resolve(payload.response);
 }
 
 module.exports.invokeLambda = invokeLambda

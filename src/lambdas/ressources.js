@@ -1,5 +1,6 @@
 const { notEnoughRessources, unknownRessource } = require("./exceptions")
-const { handleLambdaEvent } = require("./lambda-tools")
+const { handleLambdaEvent } = require("../event-handlers/lambda-event-handler")
+const { handleApiEvent } = require("../event-handlers/api-event-handler")
 
 const RESSOURCES = {
   RATION: "ration",
@@ -16,19 +17,19 @@ let ressources = {
 }
 
 const consumeRation = quantity => {
-  consume({ressource: RESSOURCES.RATION, quantity})
+  consume({ ressource: RESSOURCES.RATION, quantity })
 }
 
 const refillRation = quantity => {
-  refill({ressource: RESSOURCES.RATION, quantity})
+  refill({ ressource: RESSOURCES.RATION, quantity })
 }
 
 const consumeElectricity = quantity => {
-  consume({ressource: RESSOURCES.ELECTRICITY, quantity})
+  consume({ ressource: RESSOURCES.ELECTRICITY, quantity })
 }
 
 const refillElectricity = quantity => {
-  refill({ressource: RESSOURCES.ELECTRICITY, quantity})
+  refill({ ressource: RESSOURCES.ELECTRICITY, quantity })
 }
 
 const kill = ({ beingType }) => {
@@ -52,12 +53,7 @@ const killRobot = () => {
   consume(RESSOURCES.ROBOT, 1)
 }
 
-const consume = (obj) => {
-  const {
-    quantity,
-    ressource
-  } = JSON.parse(obj)
-  
+const consume = ({ quantity, ressource }) => {
   console.log(`Consuming ${quantity} ${ressource}`)
   if (ressources[ressource] - quantity < 0) {
     notEnoughRessources(ressource)
@@ -113,7 +109,6 @@ function getHumans() {
 
 const getRessources = () => ressources
 
-
 module.exports.RESSOURCES = RESSOURCES
 
 module.exports.consume = handleLambdaEvent(consume)
@@ -121,4 +116,4 @@ module.exports.refill = handleLambdaEvent(refill)
 
 module.exports.kill = handleLambdaEvent(kill)
 
-module.exports.getRessources = getRessources
+module.exports.getRessources = handleApiEvent(getRessources)

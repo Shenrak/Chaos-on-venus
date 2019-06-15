@@ -1,43 +1,43 @@
+const { handleApiEvent } = require("../event-handlers/api-event-handler")
 const { $consume, $supply } = require("../requests/ressources")
 
 let logs = []
 
-exports.day = async () => {
+const day = async () => {
   console.log("Starting daily routine")
 
   const routine = [
-    doActionAtTime(1, [
-      consumptionElectricityRobot
-    ]),
+    doActionAtTime(1, [consumptionElectricityRobot]),
     doActionAtTime(9, [
       consumptionElectricityHuman,
       consumptionElectricityRobot
     ]),
-    doActionAtTime(10, [
-      consumptionRationHuman
-    ]),
-    doActionAtTime(12, [
-      consumptionElectricityBase
-    ]),
-    doActionAtTime(17, [
-      consumptionElectricityRobot
-    ]),
-    doActionAtTime(19, [
-      consumptionRationHuman
-    ])
+    doActionAtTime(10, [consumptionRationHuman]),
+    doActionAtTime(12, [consumptionElectricityBase]),
+    doActionAtTime(17, [consumptionElectricityRobot]),
+    doActionAtTime(19, [consumptionRationHuman])
   ]
 
-  await Promise.all(routine).then(values => {console.log("values", values); logs.push(values); return values})
-  console.log("End of the daily routine")
-  return logs.join("\n")
+  return Promise.all(routine)
+  .then(values => {
+    return values.reduce((accumulator, value) => {
+      return [...accumulator, ...value]
+    }, [])
+  })
+  .then(values => {
+    return values
+  })
 }
 
 const doActionAtTime = (time, actions) => {
-  return new Promise(() => {
+  return new Promise((resolve, reject) => {
     let timeMS = time * 10
     setTimeout(() => {
       console.log("Starting actions")
-      Promise.all(actions.map(action => action())).then(values => {console.log("ACTIONS", values); Promise.resolve(values)})
+      Promise.all(actions.map(action => action())).then(values => {
+        console.log("ACTIONS", values)
+        resolve(values)
+      })
     }, timeMS)
   })
 }
@@ -57,3 +57,5 @@ const consumptionElectricityBase = () => {
 const consumptionRationHuman = () => {
   return $supply({ beingType: "human" })
 }
+
+module.exports.day = handleApiEvent(day)
