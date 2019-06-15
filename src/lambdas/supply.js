@@ -21,23 +21,16 @@ module.exports.robotsSupply = () => {
   }
 }
 
-const supply = async ({ beingType, quantity = 1 }) => {
+const supply = ({ beingType, quantity = 1 }) => {
   let response = "empty"
   switch (beingType) {
     case RESSOURCES.HUMAN:
-      await $consume(
-        { beingType, quantity },
-        str => (response = "Un humain mange \n" + str)
-      )
+      response = $consume({ ressource: RESSOURCES.RATION, quantity })
       break
     case RESSOURCES.ROBOT:
-      await $consume(
-        { beingType, quantity },
-        str => (response = "Un robot se recharge \n" + str)
-      )
+      response = $consume({ ressource: RESSOURCES.ELECTRICITY, quantity }).Payload
       break
   }
-  console.log(response)
   return response
 }
 

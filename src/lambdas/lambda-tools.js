@@ -1,15 +1,20 @@
 
 const handleLambdaEvent = handler => async (event, context, callBack) => {
-  let response
+  console.log(`Incoming request on ${context.functionName}`, event)
 
-  if(handler.then) {
-    response = await handler(event)
+  const result = handler(event)
+
+  if(result.then) {
+    console.log("Awaiting for response...")
+    await result.then((response) => {
+      console.log("RESPONSE", response)
+      callBack(null, { response })
+    })
   }
   else {
-    response = handler(event)
+      console.log("RESULT", result)
+      callBack(null, { result })
   }
-  
-  callBack(null, { response })
 }
 
 module.exports.handleLambdaEvent = handleLambdaEvent

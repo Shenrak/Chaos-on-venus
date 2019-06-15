@@ -4,19 +4,23 @@ var lambda = new aws.Lambda({
 })
 
 exports.$consume = ({ ressource, quantity }, callback) => {
-  lambda.invoke(
-    {
-      FunctionName: "consume",
-      Payload: JSON.stringify({ ressource, quantity })
-      // InvocationType: 'RequestReponse'
-    },
-    function(error, data) {
-      // console.log("consume " + JSON.stringify(ressource))
-      const response = data ? JSON.parse(data.Payload).response : "{}"
-      console.log(error ? error : "", response)
-      callback(error ? error : "", response)
-    }
-  )
+  var result = new Promise(function(resolve, reject) {
+    lambda.invoke(
+      {
+        FunctionName: "consume",
+        Payload: JSON.stringify({ ressource, quantity })
+        // InvocationType: 'RequestReponse'
+      },
+      function(error, data) {
+        // console.log("consume " + JSON.stringify(ressource))
+        const response = data ? JSON.parse(data.Payload).result : "{}"
+        console.log(error ? error : "", response)
+        resolve(response);
+      }
+    )
+  });
+
+  return result
 }
 
 exports.$refill = ({ ressource, quantity }, callback) => {
