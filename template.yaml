@@ -1,11 +1,18 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: Outputs the time
+
+Globals:
+  Function:
+    Runtime: nodejs8.10
+    Environment:
+      Variables:
+        REGION: "eu-west-3"
+
 Resources:
   RoutineDay:
     Type: AWS::Serverless::Function
     Properties:
-      Runtime: nodejs8.10
       Handler: routine-service/index.day
       CodeUri: ./src
       Events:
@@ -18,7 +25,6 @@ Resources:
   GetRessources:
     Type: AWS::Serverless::Function
     Properties:
-      Runtime: nodejs8.10
       Handler: ressources-service/index.getRessources
       CodeUri: ./src
       Events:
@@ -27,38 +33,37 @@ Resources:
           Properties:
             Path: /ressource
             Method: GET
+
   Consume:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: "consume"
-      Runtime: nodejs8.10
       Handler: ressources-service/index.consume
       CodeUri: ./src
   Refill:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: "refill"
-      Runtime: nodejs8.10
       Handler: ressources-service/index.refill
       CodeUri: ./src
+
   Kill:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: "kill"
-      Runtime: nodejs8.10
       Handler: ressources-service/index.kill
       CodeUri: ./src
+
   Supply:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: "supply"
-      Runtime: nodejs8.10
       Handler: ressources-service/index.supply
       CodeUri: ./src
+
   Work:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: "work"
-      Runtime: nodejs8.10
       Handler: ressources-service/index.work
       CodeUri: ./src

@@ -1,13 +1,18 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: Outputs the time
+Globals:
+  Function:
+    Runtime: nodejs8.10
+    Environment:
+      Variables:
+        REGION: eu-west-3
 Resources:
   RoutineDay:
     Type: AWS::Serverless::Function
     Properties:
-      Runtime: nodejs8.10
       Handler: routine-service/index.day
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/77bdaa2f43b24d797680bb345fd4cd14
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f88c4f583f90dc88d4bf2ffe78d1675f
       Events:
         MyTimeApi:
           Type: Api
@@ -17,9 +22,8 @@ Resources:
   GetRessources:
     Type: AWS::Serverless::Function
     Properties:
-      Runtime: nodejs8.10
       Handler: ressources-service/index.getRessources
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/77bdaa2f43b24d797680bb345fd4cd14
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f88c4f583f90dc88d4bf2ffe78d1675f
       Events:
         MyTimeApi:
           Type: Api
@@ -30,34 +34,29 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: consume
-      Runtime: nodejs8.10
       Handler: ressources-service/index.consume
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/77bdaa2f43b24d797680bb345fd4cd14
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f88c4f583f90dc88d4bf2ffe78d1675f
   Refill:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: refill
-      Runtime: nodejs8.10
       Handler: ressources-service/index.refill
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/77bdaa2f43b24d797680bb345fd4cd14
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f88c4f583f90dc88d4bf2ffe78d1675f
   Kill:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: kill
-      Runtime: nodejs8.10
       Handler: ressources-service/index.kill
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/77bdaa2f43b24d797680bb345fd4cd14
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f88c4f583f90dc88d4bf2ffe78d1675f
   Supply:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: supply
-      Runtime: nodejs8.10
       Handler: ressources-service/index.supply
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/77bdaa2f43b24d797680bb345fd4cd14
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f88c4f583f90dc88d4bf2ffe78d1675f
   Work:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: work
-      Runtime: nodejs8.10
       Handler: ressources-service/index.work
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/77bdaa2f43b24d797680bb345fd4cd14
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f88c4f583f90dc88d4bf2ffe78d1675f

@@ -1,6 +1,7 @@
 const aws = require("aws-sdk")
 const lambda = new aws.Lambda({
-  region: "eu-west-3" //change to your region
+  //@ts-ignore
+  region: process.env.REGION //change to your region
 })
 
 const invokeLambda = ({FunctionName, Payload, ...props}) => {
@@ -32,4 +33,3 @@ const lambdaInvokeResponseHandler = (resolve, reject) => (error, data) => {
 }
 
 module.exports.invokeLambda = invokeLambda
-module.exports.lambdaInvokeResponseHandler = lambdaInvokeResponseHandler

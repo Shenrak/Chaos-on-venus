@@ -1,5 +1,5 @@
 const handleApiEvent = handler => async (event, context, callBack) => {
-  console.log(`Incoming request on ${context.functionName}`, event);
+  console.log(`Incoming request on ${context.functionName}`, event)
 
   try {
     const result = handler(event) || {}
