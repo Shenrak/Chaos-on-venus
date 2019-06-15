@@ -6,7 +6,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Runtime: nodejs8.10
-      Handler: routine-service/routines/day.day
+      Handler: routine-service/index.day
       CodeUri: ./src
       Events:
         MyTimeApi:
@@ -19,7 +19,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Runtime: nodejs8.10
-      Handler: ressources-service/lambdas/ressources.getRessources
+      Handler: ressources-service/index.getRessources
       CodeUri: ./src
       Events:
         MyTimeApi:
@@ -32,26 +32,26 @@ Resources:
     Properties:
       FunctionName: "consume"
       Runtime: nodejs8.10
-      Handler: ressources-service/lambdas/ressources.consume
+      Handler: ressources-service/index.consume
       CodeUri: ./src
   Refill:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: "refill"
       Runtime: nodejs8.10
-      Handler: ressources-service/lambdas/ressources.refill
+      Handler: ressources-service/index.refill
       CodeUri: ./src
   Kill:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: "kill"
       Runtime: nodejs8.10
-      Handler: ressources-service/lambdas/ressources.kill
+      Handler: ressources-service/index.kill
       CodeUri: ./src
   Supply:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: "supply"
       Runtime: nodejs8.10
-      Handler: ressources-service/lambdas/supply.supply
+      Handler: ressources-service/index.supply
       CodeUri: ./src

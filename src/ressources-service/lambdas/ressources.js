@@ -1,6 +1,4 @@
 const { notEnoughRessources, unknownRessource } = require("./exceptions")
-const { handleLambdaEvent } = require("./lambda-event-handler")
-const { handleApiEvent } = require("../../routine-service/routines/api-event-handler")
 
 const RESSOURCES = {
   RATION: "ration",
@@ -16,21 +14,21 @@ let ressources = {
   [RESSOURCES.HUMAN]: 5 // TO DEF BY CONF FILE
 }
 
-const consumeRation = quantity => {
-  consume({ ressource: RESSOURCES.RATION, quantity })
-}
+// const consumeRation = quantity => {
+//   consume({ ressource: RESSOURCES.RATION, quantity })
+// }
 
-const refillRation = quantity => {
-  refill({ ressource: RESSOURCES.RATION, quantity })
-}
+// const refillRation = quantity => {
+//   refill({ ressource: RESSOURCES.RATION, quantity })
+// }
 
-const consumeElectricity = quantity => {
-  consume({ ressource: RESSOURCES.ELECTRICITY, quantity })
-}
+// const consumeElectricity = quantity => {
+//   consume({ ressource: RESSOURCES.ELECTRICITY, quantity })
+// }
 
-const refillElectricity = quantity => {
-  refill({ ressource: RESSOURCES.ELECTRICITY, quantity })
-}
+// const refillElectricity = quantity => {
+//   refill({ ressource: RESSOURCES.ELECTRICITY, quantity })
+// }
 
 const kill = ({ beingType }) => {
   switch (beingType) {
@@ -111,9 +109,9 @@ const getRessources = () => ressources
 
 module.exports.RESSOURCES = RESSOURCES
 
-module.exports.consume = handleLambdaEvent(consume)
-module.exports.refill = handleLambdaEvent(refill)
+module.exports.consume = consume
+module.exports.refill = refill
 
-module.exports.kill = handleLambdaEvent(kill)
+module.exports.kill = kill
 
-module.exports.getRessources = handleApiEvent(getRessources)
+module.exports.getRessources = getRessources

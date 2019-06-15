@@ -1,5 +1,4 @@
-const { handleApiEvent } = require("./api-event-handler")
-const { $consume, $supply } = require("../requests/ressources")
+const { $consume, $supply } = require("../../utils/requests/ressources")
 
 const day = async () => {
   console.log("Starting daily routine")
@@ -28,7 +27,7 @@ const day = async () => {
 }
 
 const doActionAtTime = (time, actions) => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     let timeMS = time * 10
     setTimeout(() => {
       console.log("Starting actions")
@@ -56,4 +55,4 @@ const consumptionRationHuman = () => {
   return $supply({ beingType: "human" })
 }
 
-module.exports.day = handleApiEvent(day)
+module.exports.day = day

@@ -1,0 +1,15 @@
+const {
+  handleLambdaEvent
+} = require("../utils/event-handlers/lambda-event-handler")
+const { handleApiEvent } = require("../utils/event-handlers/api-event-handler")
+
+const { consume, refill, kill, getRessources } = require("./lambdas/ressources")
+const { supply } = require("./lambdas/supply")
+
+module.exports.consume = handleLambdaEvent(consume)
+module.exports.refill = handleLambdaEvent(refill)
+module.exports.kill = handleLambdaEvent(kill)
+
+module.exports.supply = handleLambdaEvent(supply)
+
+module.exports.getRessources = handleApiEvent(getRessources)

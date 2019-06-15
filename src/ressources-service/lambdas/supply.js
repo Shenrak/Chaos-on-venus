@@ -1,10 +1,5 @@
-const {
-  RESSOURCES,
-  getHumans,
-  getRobots
-} = require("../lambdas/ressources")
-const { handleLambdaEvent } = require("./lambda-event-handler")
-const { $consume } = require("../../routine-service/requests/ressources")
+const { RESSOURCES, getHumans, getRobots } = require("../lambdas/ressources")
+const { $consume } = require("../../utils/requests/ressources")
 
 module.exports.humansSupply = () => {
   for (let i = 0; i < getHumans(); i++) {
@@ -29,16 +24,7 @@ const supply = ({ beingType, quantity = 1 }) => {
       break
   }
 
-  //   if(!response.then) {
-  //     console.log("NO RESPONSE.THEN",response)
-  //   } else{
-
-  //   return response.then(res => {
-  //     console.log("response.then", res)
-  //     return res.Payload
-  //   })
-  // }
   return response
 }
 
-module.exports.supply = handleLambdaEvent(supply)
+module.exports.supply = supply
