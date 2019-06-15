@@ -3,7 +3,7 @@ const {
 } = require("../utils/event-handlers/lambda-event-handler")
 const { handleApiEvent } = require("../utils/event-handlers/api-event-handler")
 
-const { consume, refill, kill, getRessources } = require("./lambdas/ressources")
+const { consume, refill, kill, getRessources } = require("./repository/ressources")
 const { supply } = require("./actions/supply")
 const { work } = require("./actions/work")
 
