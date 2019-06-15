@@ -1,4 +1,5 @@
 const { notEnoughRessources, unknownRessource } = require("./exceptions")
+const { handleLambdaEvent } = require("./lambda-tools")
 
 const RESSOURCES = {
   RATION: "ration",
@@ -107,10 +108,6 @@ function getHumans() {
 
 const getRessources = () => ressources
 
-const handleLambdaEvent = handler => (event, context, callBack) => {
-  const response = handler(event)
-  callBack(null, { response })
-}
 
 module.exports.RESSOURCES = RESSOURCES
 
