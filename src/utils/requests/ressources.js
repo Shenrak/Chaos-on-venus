@@ -1,6 +1,14 @@
 
 const { invokeLambda } = require("./request-tools")
 
+exports.$getRessources = () => {
+  const result = invokeLambda({
+    FunctionName: "getRessources",
+    // InvocationType: 'RequestReponse'
+  })
+  return result
+}
+
 exports.$consume = ({ ressource, quantity }) => {
   const result = invokeLambda({
     FunctionName: "consume",

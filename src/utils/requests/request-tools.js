@@ -1,10 +1,9 @@
 const aws = require("aws-sdk")
 const lambda = new aws.Lambda({
-  //@ts-ignore
-  region: process.env.REGION //change to your region
+  region: process.env.REGION 
 })
 
-const invokeLambda = ({FunctionName, Payload, ...props}) => {
+const invokeLambda = ({FunctionName, Payload = {}, ...props}) => {
   return new Promise(function(resolve, reject) {
     lambda.invoke(
       {

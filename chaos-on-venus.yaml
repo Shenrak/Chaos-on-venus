@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: Outputs the time
+Description: Chaos on venus
 Globals:
   Function:
     Runtime: nodejs8.10
@@ -8,55 +8,102 @@ Globals:
       Variables:
         REGION: eu-west-3
 Resources:
-  RoutineDay:
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - lambda.amazonaws.com
+          Action:
+          - sts:AssumeRole
+      Policies:
+      - PolicyName: allowLambdaInvoke
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Sid: VisualEditor0
+            Effect: Allow
+            Action:
+            - lambda:InvokeFunction
+            - lambda:InvokeAsync
+            Resource: '*'
+  DailyRoutine:
     Type: AWS::Serverless::Function
     Properties:
+      FunctionName: dailyRoutine
       Handler: routine-service/index.day
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f88c4f583f90dc88d4bf2ffe78d1675f
+      Role:
+        Fn::GetAtt:
+        - LambdaExecutionRole
+        - Arn
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1f7de9082b74677d93f531b915764157
       Events:
         MyTimeApi:
           Type: Api
           Properties:
             Path: /day
             Method: GET
-  GetRessources:
+  CheckRessources:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: ressources-service/index.getRessources
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f88c4f583f90dc88d4bf2ffe78d1675f
+      FunctionName: checkRessources
+      Handler: chaos-api/index.checkRessources
+      Role:
+        Fn::GetAtt:
+        - LambdaExecutionRole
+        - Arn
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1f7de9082b74677d93f531b915764157
       Events:
         MyTimeApi:
           Type: Api
           Properties:
             Path: /ressource
             Method: GET
+  GetRessources:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: getRessources
+      Handler: ressources-service/index.getRessources
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1f7de9082b74677d93f531b915764157
   Consume:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: consume
       Handler: ressources-service/index.consume
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f88c4f583f90dc88d4bf2ffe78d1675f
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1f7de9082b74677d93f531b915764157
   Refill:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: refill
       Handler: ressources-service/index.refill
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f88c4f583f90dc88d4bf2ffe78d1675f
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1f7de9082b74677d93f531b915764157
   Kill:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: kill
       Handler: ressources-service/index.kill
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f88c4f583f90dc88d4bf2ffe78d1675f
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1f7de9082b74677d93f531b915764157
   Supply:
     Type: AWS::Serverless::Function
     Properties:
+      Role:
+        Fn::GetAtt:
+        - LambdaExecutionRole
+        - Arn
       FunctionName: supply
       Handler: ressources-service/index.supply
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f88c4f583f90dc88d4bf2ffe78d1675f
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1f7de9082b74677d93f531b915764157
   Work:
     Type: AWS::Serverless::Function
     Properties:
+      Role:
+        Fn::GetAtt:
+        - LambdaExecutionRole
+        - Arn
       FunctionName: work
       Handler: ressources-service/index.work
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/f88c4f583f90dc88d4bf2ffe78d1675f
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1f7de9082b74677d93f531b915764157

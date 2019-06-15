@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: Outputs the time
+Description: Chaos on venus
 
 Globals:
   Function:
@@ -10,10 +10,36 @@ Globals:
         REGION: "eu-west-3"
 
 Resources:
-  RoutineDay:
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - lambda.amazonaws.com
+          Action:
+          - sts:AssumeRole
+      Policies:
+        - PolicyName: allowLambdaInvoke
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+            - Sid: VisualEditor0
+              Effect: Allow
+              Action:
+              - lambda:InvokeFunction
+              - lambda:InvokeAsync
+              Resource: "*"
+
+  DailyRoutine:
     Type: AWS::Serverless::Function
     Properties:
+      FunctionName: "dailyRoutine"
       Handler: routine-service/index.day
+      Role: !GetAtt LambdaExecutionRole.Arn
       CodeUri: ./src
       Events:
         MyTimeApi:
@@ -22,10 +48,12 @@ Resources:
             Path: /day
             Method: GET
 
-  GetRessources:
+  CheckRessources:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: ressources-service/index.getRessources
+      FunctionName: "checkRessources"
+      Handler: chaos-api/index.checkRessources
+      Role: !GetAtt LambdaExecutionRole.Arn
       CodeUri: ./src
       Events:
         MyTimeApi:
@@ -34,12 +62,20 @@ Resources:
             Path: /ressource
             Method: GET
 
+  GetRessources:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: "getRessources"
+      Handler: ressources-service/index.getRessources
+      CodeUri: ./src
+
   Consume:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: "consume"
       Handler: ressources-service/index.consume
       CodeUri: ./src
+      
   Refill:
     Type: AWS::Serverless::Function
     Properties:
@@ -57,6 +93,7 @@ Resources:
   Supply:
     Type: AWS::Serverless::Function
     Properties:
+      Role: !GetAtt LambdaExecutionRole.Arn
       FunctionName: "supply"
       Handler: ressources-service/index.supply
       CodeUri: ./src
@@ -64,6 +101,7 @@ Resources:
   Work:
     Type: AWS::Serverless::Function
     Properties:
+      Role: !GetAtt LambdaExecutionRole.Arn
       FunctionName: "work"
       Handler: ressources-service/index.work
       CodeUri: ./src
