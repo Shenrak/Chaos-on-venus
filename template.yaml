@@ -66,28 +66,28 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: "getRessources"
-      Handler: ressources-service/index.getRessources
+      Handler: colony-service/index.getRessources
       CodeUri: ./src
 
   Consume:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: "consume"
-      Handler: ressources-service/index.consume
+      Handler: colony-service/index.consume
       CodeUri: ./src
       
   Refill:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: "refill"
-      Handler: ressources-service/index.refill
+      Handler: colony-service/index.refill
       CodeUri: ./src
 
   Kill:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: "kill"
-      Handler: ressources-service/index.kill
+      Handler: colony-service/index.kill
       CodeUri: ./src
 
   Supply:
@@ -95,7 +95,7 @@ Resources:
     Properties:
       Role: !GetAtt LambdaExecutionRole.Arn
       FunctionName: "supply"
-      Handler: ressources-service/index.supply
+      Handler: colony-service/index.supply
       CodeUri: ./src
 
   Work:
@@ -103,5 +103,5 @@ Resources:
     Properties:
       Role: !GetAtt LambdaExecutionRole.Arn
       FunctionName: "work"
-      Handler: ressources-service/index.work
+      Handler: colony-service/index.work
       CodeUri: ./src

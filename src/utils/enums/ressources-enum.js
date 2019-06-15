@@ -5,4 +5,4 @@ const RESSOURCES = {
   HUMAN: "human"
 }
 
-module.exports = RESSOURCES
+module.exports.RESSOURCES = RESSOURCES

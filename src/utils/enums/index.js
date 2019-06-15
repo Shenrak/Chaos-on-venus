@@ -1,3 +1,3 @@
-const RESSOURCES = require("./ressources-enum")
+const { RESSOURCES } = require("./ressources-enum")
 
 module.exports.RESSOURCES = RESSOURCES
