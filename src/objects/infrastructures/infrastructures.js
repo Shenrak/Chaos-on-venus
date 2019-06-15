@@ -9,25 +9,17 @@
 // },
 
 module.exports.createInfrastructure = ({
+  id,
   type,
   workersCapacity,
-  outPut,
+  outPut = [],
   workNeeded
 }) => {
   return {
+    id,
     type,
     workersCapacity,
-    outPut: this.createInfrastructureOutPut(outPut),
+    outPut,
     workNeeded
-  }
-}
-
-module.exports.createInfrastructureOutPut = ({
-  ressourceType,
-  quantity,
-}) => {
-  return {
-    ressourceType,
-    quantity,
   }
 }

@@ -1,5 +1,5 @@
-const { RESSOURCES } = require("../enums/index")
-const { createInfrastructure } = require("./infrastructure")
+const { RESSOURCES } = require("../../utils/enums")
+const { createInfrastructure } = require("./infrastructures")
 
 module.exports.INFRASTRUCTURE_TYPE = {
   CENTRAL: "central",
@@ -10,25 +10,25 @@ const infrastructuresProps = {
   [this.INFRASTRUCTURE_TYPE.CENTRAL]: {
     type: this.INFRASTRUCTURE_TYPE.CENTRAL,
     workersCapacity: 6,
-    outPut: {
+    outPut: [{
       ressourceType: RESSOURCES.ELECTRICITY,
       quantity: 10,
-    },
+    }],
     workNeeded: 10
   },
   [this.INFRASTRUCTURE_TYPE.GREENHOUSE]: {
     type: this.INFRASTRUCTURE_TYPE.GREENHOUSE,
     workersCapacity: 6,
-    outPut: {
+    outPut: [{
       ressourceType: RESSOURCES.RATION,
       quantity: 10,
-    },
+    }],
     workNeeded: 10
   },
 }
 
-module.exports.infractuctureFactory = (infrastructureTypes) => {
-  return infrastructureTypes.map(type => {
+module.exports.infractuctureFactory = (infrastructuresTypes) => {
+  return infrastructuresTypes.map(type => {
     const props = infrastructuresProps[type]
     return createInfrastructure(props)
   })
