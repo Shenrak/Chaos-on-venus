@@ -107,11 +107,16 @@ function getHumans() {
 
 const getRessources = () => ressources
 
+const handleLambdaEvent = handler => (event, context, callBack) => {
+  const response = handler(event)
+  callBack(null, { response })
+}
+
 module.exports.RESSOURCES = RESSOURCES
 
-module.exports.consume = consume
-module.exports.refill = refill
+module.exports.consume = handleLambdaEvent(consume)
+module.exports.refill = handleLambdaEvent(refill)
 
-module.exports.kill = kill
+module.exports.kill = handleLambdaEvent(kill)
 
 module.exports.getRessources = getRessources
