@@ -11,13 +11,15 @@
 module.exports.createWorker = ({
   id,
   type,
-  dailyNeeds = [],
+  neededSupplies = [],
   skills = [],
+  assignedInfrastructure
 }) => {
   return {
     id,
     type,
-    dailyNeeds,
+    neededSupplies,
     skills,
+    assignedInfrastructure
   }
 }

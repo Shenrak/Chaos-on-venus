@@ -1,0 +1,11 @@
+{
+  "infrastructures": [{
+    "type": "central",
+    "workers": [
+      "human",
+      "robot",
+      "robot",
+      "robot"
+    ]
+  }]
+}

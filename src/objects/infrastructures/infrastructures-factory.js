@@ -27,9 +27,6 @@ const infrastructuresProps = {
   },
 }
 
-module.exports.infractuctureFactory = (infrastructuresTypes) => {
-  return infrastructuresTypes.map(type => {
-    const props = infrastructuresProps[type]
-    return createInfrastructure(props)
-  })
+module.exports.infractuctureFactory = (type) => {
+  return createInfrastructure(infrastructuresProps[type])
 }

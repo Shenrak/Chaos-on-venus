@@ -9,23 +9,23 @@ module.exports.WORKER_TYPE = {
 const workersProps = {
   [this.WORKER_TYPE.HUMAN]: {
     type: this.WORKER_TYPE.HUMAN,
-    dailyNeeds: [
+    neededSupplies: [
       {
         ressourceType: RESSOURCES.RATION,
-        quantity: 2
+        quantity: 1
       },
       {
         ressourceType: RESSOURCES.ELECTRICITY,
-        quantity: 1
+        quantity: 0.5
       }
     ]
   },
   [this.WORKER_TYPE.ROBOT]: {
     type: this.WORKER_TYPE.ROBOT,
-    dailyNeeds: [
+    neededSupplies: [
       {
         ressourceType: RESSOURCES.ELECTRICITY,
-        quantity: 4
+        quantity: 2
       }
     ],
     skills: [
@@ -37,9 +37,6 @@ const workersProps = {
   }
 }
 
-module.exports.workerFactory = workersTypes => {
-  return workersTypes.map(type => {
-    const props = workersProps[type]
-    return createWorker(props)
-  })
+module.exports.workerFactory = type => {
+  return createWorker(workersProps[type])
 }

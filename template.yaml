@@ -48,6 +48,19 @@ Resources:
             Path: /day
             Method: GET
 
+  Test:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: objects/index.testFunctionHandled
+      Role: !GetAtt LambdaExecutionRole.Arn
+      CodeUri: ./src
+      Events:
+        MyTimeApi:
+          Type: Api
+          Properties:
+            Path: /test
+            Method: GET
+
   CheckRessources:
     Type: AWS::Serverless::Function
     Properties:
