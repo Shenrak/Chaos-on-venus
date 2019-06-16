@@ -40,6 +40,7 @@ Resources:
       FunctionName: "dailyRoutine"
       Handler: routine-service/index.day
       Role: !GetAtt LambdaExecutionRole.Arn
+      TimeOut: 20
       CodeUri: ./src
       Events:
         MyTimeApi:
@@ -48,17 +49,31 @@ Resources:
             Path: /day
             Method: GET
 
-  Test:
+  Routine:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: objects/index.testFunctionHandled
+      Handler: routine-service/index.routine
+      Role: !GetAtt LambdaExecutionRole.Arn
+      TimeOut: 20
+      CodeUri: ./src
+      Events:
+        MyTimeApi:
+          Type: Api
+          Properties:
+            Path: /routine
+            Method: GET
+
+  GetInitialState:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: objects/index.getStateApi
       Role: !GetAtt LambdaExecutionRole.Arn
       CodeUri: ./src
       Events:
         MyTimeApi:
           Type: Api
           Properties:
-            Path: /test
+            Path: /getstate
             Method: GET
 
   CheckRessources:

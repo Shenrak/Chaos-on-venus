@@ -1,12 +1,18 @@
 // {
-//   type: this.INFRASTRUCTURE_TYPE.GREENHOUSE,
-//   workersCapacity: 6,
-//   outPut: {
-//     ressourceType: RESSOURCES.RATION,
-//     quantity: 10,
-//   },
-//   workNeeded: 10
-// },
+//   type: this.WORKER_TYPE.ROBOT,
+//   neededSupplies: [
+//     {
+//       ressource: RESSOURCES.ELECTRICITY,
+//       quantity: 2
+//     }
+//   ],
+//   skills: [
+//     {
+//       workType: WORK_TYPE.MAKE_ELECTRICITY,
+//       efficiency: 2
+//     }
+//   ]
+// }
 
 module.exports.createWorker = ({
   id,

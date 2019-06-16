@@ -3,17 +3,16 @@ const { handleApiEvent } = require("../utils/event-handlers")
 const { infractuctureFactory } = require("./infrastructures")
 const { workerFactory } = require("./workers")
 
-module.exports.testFunction = () => {
+module.exports.getState = () => {
   const config = readJsonFile(__dirname, "config.json")
-  
+
   const state = config.infrastructures.reduce(
     (accumulator, infrastructureConfig) => {
-      const infrastructures = [
-        infractuctureFactory(infrastructureConfig.type),
-        ...accumulator.infrastructures
-      ]
+      const infrastructure = infractuctureFactory(infrastructureConfig.type)
+      const infrastructures = [infrastructure, ...accumulator.infrastructures]
+
       const workers = infrastructureConfig.workers
-        .map(workerFactory)
+        .map(type => workerFactory(type, infrastructure.id))
         .concat(accumulator.infrastructures)
 
       return {
@@ -27,7 +26,7 @@ module.exports.testFunction = () => {
     }
   )
 
-  console.log("STATE", state)
+  console.log("INITIAL STATE", state)
   return state
 }
-module.exports.testFunctionHandled = handleApiEvent(this.testFunction)
+module.exports.getStateApi = handleApiEvent(this.getState)

@@ -1,5 +1,9 @@
+const uuid = require("uuid/v4")
 const { RESSOURCES } = require("../../utils/enums")
+const { WORK_TYPE } = require("../infrastructures")
 const { createWorker } = require("./workers")
+
+
 
 module.exports.WORKER_TYPE = {
   HUMAN: "human",
@@ -11,11 +15,11 @@ const workersProps = {
     type: this.WORKER_TYPE.HUMAN,
     neededSupplies: [
       {
-        ressourceType: RESSOURCES.RATION,
+        ressource: RESSOURCES.RATION,
         quantity: 1
       },
       {
-        ressourceType: RESSOURCES.ELECTRICITY,
+        ressource: RESSOURCES.ELECTRICITY,
         quantity: 0.5
       }
     ]
@@ -24,19 +28,23 @@ const workersProps = {
     type: this.WORKER_TYPE.ROBOT,
     neededSupplies: [
       {
-        ressourceType: RESSOURCES.ELECTRICITY,
+        ressource: RESSOURCES.ELECTRICITY,
         quantity: 2
       }
     ],
     skills: [
       {
-        ressourceType: RESSOURCES.ELECTRICITY,
+        workType: WORK_TYPE.MAKE_ELECTRICITY,
         efficiency: 2
       }
     ]
   }
 }
 
-module.exports.workerFactory = type => {
-  return createWorker(workersProps[type])
+module.exports.workerFactory = (type, assignedInfrastructure) => {
+  return createWorker({
+    id: uuid(),
+    assignedInfrastructure,
+    ...workersProps[type]
+  })
 }

@@ -40,12 +40,42 @@ Resources:
         Fn::GetAtt:
         - LambdaExecutionRole
         - Arn
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/b8ca58fccc95a45f3f3b4c3de1906b16
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/b69d1c110502bd6ac58c3b076a0967e5
       Events:
         MyTimeApi:
           Type: Api
           Properties:
             Path: /day
+            Method: GET
+  GetInitialState:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: objects/index.getStateApi
+      Role:
+        Fn::GetAtt:
+        - LambdaExecutionRole
+        - Arn
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/b69d1c110502bd6ac58c3b076a0967e5
+      Events:
+        MyTimeApi:
+          Type: Api
+          Properties:
+            Path: /getstate
+            Method: GET
+  Routine:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: routine-service/index.routine
+      Role:
+        Fn::GetAtt:
+        - LambdaExecutionRole
+        - Arn
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/b69d1c110502bd6ac58c3b076a0967e5
+      Events:
+        MyTimeApi:
+          Type: Api
+          Properties:
+            Path: /routine
             Method: GET
   CheckRessources:
     Type: AWS::Serverless::Function
@@ -56,7 +86,7 @@ Resources:
         Fn::GetAtt:
         - LambdaExecutionRole
         - Arn
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/b8ca58fccc95a45f3f3b4c3de1906b16
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/b69d1c110502bd6ac58c3b076a0967e5
       Events:
         MyTimeApi:
           Type: Api
@@ -67,26 +97,26 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: getRessources
-      Handler: ressources-service/index.getRessources
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/b8ca58fccc95a45f3f3b4c3de1906b16
+      Handler: colony-service/index.getRessources
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/b69d1c110502bd6ac58c3b076a0967e5
   Consume:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: consume
-      Handler: ressources-service/index.consume
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/b8ca58fccc95a45f3f3b4c3de1906b16
+      Handler: colony-service/index.consume
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/b69d1c110502bd6ac58c3b076a0967e5
   Refill:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: refill
-      Handler: ressources-service/index.refill
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/b8ca58fccc95a45f3f3b4c3de1906b16
+      Handler: colony-service/index.refill
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/b69d1c110502bd6ac58c3b076a0967e5
   Kill:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: kill
-      Handler: ressources-service/index.kill
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/b8ca58fccc95a45f3f3b4c3de1906b16
+      Handler: colony-service/index.kill
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/b69d1c110502bd6ac58c3b076a0967e5
   Supply:
     Type: AWS::Serverless::Function
     Properties:
@@ -95,8 +125,8 @@ Resources:
         - LambdaExecutionRole
         - Arn
       FunctionName: supply
-      Handler: ressources-service/index.supply
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/b8ca58fccc95a45f3f3b4c3de1906b16
+      Handler: colony-service/index.supply
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/b69d1c110502bd6ac58c3b076a0967e5
   Work:
     Type: AWS::Serverless::Function
     Properties:
@@ -105,5 +135,5 @@ Resources:
         - LambdaExecutionRole
         - Arn
       FunctionName: work
-      Handler: ressources-service/index.work
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/b8ca58fccc95a45f3f3b4c3de1906b16
+      Handler: colony-service/index.work
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/b69d1c110502bd6ac58c3b076a0967e5

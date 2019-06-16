@@ -1,5 +1,5 @@
 const handleLambdaEvent = handler => async (event, context, callBack) => {
-  console.log(`Incoming lambda event on ${context.functionName}`, event)
+  //console.log(`Incoming lambda event on ${context.functionName}`, event)
 
   try {
     const result = handler(event) || {}

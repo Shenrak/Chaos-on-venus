@@ -1,8 +1,8 @@
 // {
 //   type: this.INFRASTRUCTURE_TYPE.GREENHOUSE,
 //   workersCapacity: 6,
-//   outPut: {
-//     ressourceType: RESSOURCES.RATION,
+//   outPuts: {
+//     ressource: RESSOURCES.RATION,
 //     quantity: 10,
 //   },
 //   workNeeded: 10
@@ -12,14 +12,17 @@ module.exports.createInfrastructure = ({
   id,
   type,
   workersCapacity,
-  outPut = [],
+  outPuts = [],
+  workType,
   workNeeded
 }) => {
   return {
     id,
     type,
     workersCapacity,
-    outPut,
-    workNeeded
+    outPuts,
+    workNeeded,
+    workType,
+    totalWork: 0
   }
 }
