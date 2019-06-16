@@ -1,4 +1,4 @@
-const { getState } = require("../../objects/index")
+const { getState } = require("../../colony-repository")
 const { $refill, $consume } = require("../../utils/requests/ressources")
 
 const EVENT_TYPE = {
@@ -33,9 +33,8 @@ const dayLog = (time, value) => ({
 module.exports.routine = async () => {
   const awaiters = []
   const state = getState()
-  const dayLogs = []
 
-  dayEvents.map(event => {
+  const dayLogs = dayEvents.map(event => {
     const dayMessages = []
     const ressourcesToConsume = []
     const ressourcesToRefill = []
@@ -55,10 +54,10 @@ module.exports.routine = async () => {
 
           if (actualWork >= workNeeded) {
             outPuts.map(({ ressource, quantity }) => {
-              if (!ressourcesToConsume.find(r => r.ressource === ressource)) {
-                ressourcesToConsume.push({ ressource, quantity })
+              if (!ressourcesToRefill.find(r => r.ressource === ressource)) {
+                ressourcesToRefill.push({ ressource, quantity })
               } else {
-                ressourcesToConsume.find(
+                ressourcesToRefill.find(
                   r => r.ressource === ressource
                 ).quantity += quantity
               }
@@ -72,10 +71,10 @@ module.exports.routine = async () => {
       case EVENT_TYPE.SUPPLY:
         state.workers.forEach(worker => {
           worker.neededSupplies.forEach(({ ressource, quantity }) => {
-            if (!ressourcesToRefill.find(r => r.ressource === ressource)) {
-              ressourcesToRefill.push({ ressource, quantity })
+            if (!ressourcesToConsume.find(r => r.ressource === ressource)) {
+              ressourcesToConsume.push({ ressource, quantity })
             } else {
-              ressourcesToRefill.find(
+              ressourcesToConsume.find(
                 r => r.ressource === ressource
               ).quantity += quantity
             }
@@ -95,11 +94,9 @@ module.exports.routine = async () => {
     })
 
     awaiters.push(...dayMessages)
-    dayLogs.push(dayLog(event.time, dayMessages))
+    return dayLog(event.time, dayMessages)
   })
-  console.log("awaiters", awaiters)
-  console.log("dayLogs", dayLogs)
 
   await Promise.all(awaiters)
-  return dayLogs
+  return dayLogs.filter(log => log.value.length > 0)
 }

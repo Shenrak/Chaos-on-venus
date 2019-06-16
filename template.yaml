@@ -7,6 +7,7 @@ Globals:
     Runtime: nodejs8.10
     Environment:
       Variables:
+        CONFIG_FILE: "config.json"
         REGION: "eu-west-3"
 
 Resources:
@@ -40,7 +41,6 @@ Resources:
       FunctionName: "dailyRoutine"
       Handler: routine-service/index.day
       Role: !GetAtt LambdaExecutionRole.Arn
-      TimeOut: 20
       CodeUri: ./src
       Events:
         MyTimeApi:
@@ -54,7 +54,6 @@ Resources:
     Properties:
       Handler: routine-service/index.routine
       Role: !GetAtt LambdaExecutionRole.Arn
-      TimeOut: 20
       CodeUri: ./src
       Events:
         MyTimeApi:
@@ -66,7 +65,7 @@ Resources:
   GetInitialState:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: objects/index.getStateApi
+      Handler: colony-repository/index.getStateApi
       Role: !GetAtt LambdaExecutionRole.Arn
       CodeUri: ./src
       Events:
@@ -94,28 +93,21 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: "getRessources"
-      Handler: colony-service/index.getRessources
+      Handler: colony-repository/index.getRessources
       CodeUri: ./src
 
   Consume:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: "consume"
-      Handler: colony-service/index.consume
+      Handler: colony-repository/index.consume
       CodeUri: ./src
       
   Refill:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: "refill"
-      Handler: colony-service/index.refill
-      CodeUri: ./src
-
-  Kill:
-    Type: AWS::Serverless::Function
-    Properties:
-      FunctionName: "kill"
-      Handler: colony-service/index.kill
+      Handler: colony-repository/index.refill
       CodeUri: ./src
 
   Supply:

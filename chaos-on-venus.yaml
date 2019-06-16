@@ -6,6 +6,7 @@ Globals:
     Runtime: nodejs8.10
     Environment:
       Variables:
+        CONFIG_FILE: config.json
         REGION: eu-west-3
 Resources:
   LambdaExecutionRole:
@@ -40,27 +41,12 @@ Resources:
         Fn::GetAtt:
         - LambdaExecutionRole
         - Arn
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/b69d1c110502bd6ac58c3b076a0967e5
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/9a7bd3a2bd027dabf897399044d9483a
       Events:
         MyTimeApi:
           Type: Api
           Properties:
             Path: /day
-            Method: GET
-  GetInitialState:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: objects/index.getStateApi
-      Role:
-        Fn::GetAtt:
-        - LambdaExecutionRole
-        - Arn
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/b69d1c110502bd6ac58c3b076a0967e5
-      Events:
-        MyTimeApi:
-          Type: Api
-          Properties:
-            Path: /getstate
             Method: GET
   Routine:
     Type: AWS::Serverless::Function
@@ -70,12 +56,27 @@ Resources:
         Fn::GetAtt:
         - LambdaExecutionRole
         - Arn
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/b69d1c110502bd6ac58c3b076a0967e5
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/9a7bd3a2bd027dabf897399044d9483a
       Events:
         MyTimeApi:
           Type: Api
           Properties:
             Path: /routine
+            Method: GET
+  GetInitialState:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: colony-repository/index.getStateApi
+      Role:
+        Fn::GetAtt:
+        - LambdaExecutionRole
+        - Arn
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/9a7bd3a2bd027dabf897399044d9483a
+      Events:
+        MyTimeApi:
+          Type: Api
+          Properties:
+            Path: /getstate
             Method: GET
   CheckRessources:
     Type: AWS::Serverless::Function
@@ -86,7 +87,7 @@ Resources:
         Fn::GetAtt:
         - LambdaExecutionRole
         - Arn
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/b69d1c110502bd6ac58c3b076a0967e5
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/9a7bd3a2bd027dabf897399044d9483a
       Events:
         MyTimeApi:
           Type: Api
@@ -97,26 +98,20 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: getRessources
-      Handler: colony-service/index.getRessources
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/b69d1c110502bd6ac58c3b076a0967e5
+      Handler: colony-repository/index.getRessources
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/9a7bd3a2bd027dabf897399044d9483a
   Consume:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: consume
-      Handler: colony-service/index.consume
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/b69d1c110502bd6ac58c3b076a0967e5
+      Handler: colony-repository/index.consume
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/9a7bd3a2bd027dabf897399044d9483a
   Refill:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: refill
-      Handler: colony-service/index.refill
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/b69d1c110502bd6ac58c3b076a0967e5
-  Kill:
-    Type: AWS::Serverless::Function
-    Properties:
-      FunctionName: kill
-      Handler: colony-service/index.kill
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/b69d1c110502bd6ac58c3b076a0967e5
+      Handler: colony-repository/index.refill
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/9a7bd3a2bd027dabf897399044d9483a
   Supply:
     Type: AWS::Serverless::Function
     Properties:
@@ -126,7 +121,7 @@ Resources:
         - Arn
       FunctionName: supply
       Handler: colony-service/index.supply
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/b69d1c110502bd6ac58c3b076a0967e5
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/9a7bd3a2bd027dabf897399044d9483a
   Work:
     Type: AWS::Serverless::Function
     Properties:
@@ -136,4 +131,4 @@ Resources:
         - Arn
       FunctionName: work
       Handler: colony-service/index.work
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/b69d1c110502bd6ac58c3b076a0967e5
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/9a7bd3a2bd027dabf897399044d9483a

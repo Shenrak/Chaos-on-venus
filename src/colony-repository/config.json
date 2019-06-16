@@ -8,5 +8,9 @@
       "robot",
       "robot"
     ]
-  }]
+  }],
+  "ressources": {
+    "ration": 100,
+    "electricity": 100
+  }
 }

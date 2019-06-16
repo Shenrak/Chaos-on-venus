@@ -1,5 +1,5 @@
 const uuid = require('uuid/v4')
-const { RESSOURCES } = require("../../utils/enums")
+const { RESSOURCES } = require("../../../utils/enums")
 const { createInfrastructure } = require("./infrastructures")
 
 module.exports.INFRASTRUCTURE_TYPE = {

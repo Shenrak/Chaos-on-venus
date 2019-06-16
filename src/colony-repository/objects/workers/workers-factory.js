@@ -1,5 +1,5 @@
 const uuid = require("uuid/v4")
-const { RESSOURCES } = require("../../utils/enums")
+const { RESSOURCES } = require("../../../utils/enums")
 const { WORK_TYPE } = require("../infrastructures")
 const { createWorker } = require("./workers")
 
