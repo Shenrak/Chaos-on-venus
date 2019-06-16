@@ -96,6 +96,20 @@ Resources:
       Handler: colony-repository/index.getRessources
       CodeUri: ./src
 
+  GetWorkers:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: "getWorkers"
+      Handler: colony-repository/index.getWorkers
+      CodeUri: ./src
+
+  GetInfrastructure:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: "getInfrastructures"
+      Handler: colony-repository/index.getInfrastructures
+      CodeUri: ./src
+
   Consume:
     Type: AWS::Serverless::Function
     Properties:
@@ -108,14 +122,6 @@ Resources:
     Properties:
       FunctionName: "refill"
       Handler: colony-repository/index.refill
-      CodeUri: ./src
-
-  Supply:
-    Type: AWS::Serverless::Function
-    Properties:
-      Role: !GetAtt LambdaExecutionRole.Arn
-      FunctionName: "supply"
-      Handler: colony-service/index.supply
       CodeUri: ./src
 
   Work:
