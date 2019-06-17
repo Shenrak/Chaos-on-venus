@@ -1,12 +1,14 @@
 const { TASK } = require("../utils/objects/workers")
 const { handleApiEvent } = require("../utils/event-handlers/api-event-handler")
-const { $getState } = require("../utils/requests/ressources")
+//const { $getState } = require("../utils/requests/ressources")
 const {
   $addWorkForceToInfrastructureAndGetOutPuts
   //$setInfrastructures
 } = require("../utils/requests/infrastructures")
 const { $consume, $refill } = require("../utils/requests/ressources")
 const { supply } = require("./tasks")
+const { $getWorkers } = require("../utils/requests/workers")
+const { $getInfrastructures } = require("../utils/requests/infrastructures")
 
 const {
   mayPlague,
@@ -15,7 +17,6 @@ const {
 } = require("../random-events/index")
 
 const findPlanningTask = (planning, hour) => {
-  console.log("planning", planning)
   const planningTask = planning.find(planningTask => {
     return planningTask.startHour <= hour && planningTask.endHour >= hour
   })
@@ -24,8 +25,12 @@ const findPlanningTask = (planning, hour) => {
 }
 
 const runDay = async () => {
-  const state = await $getState()
-  const { workers, infrastructures } = state
+  //const state = await $getState()
+  const { workers, infrastructures } = await (async () => {
+    let workers = await $getWorkers()
+    let infrastructures = await $getInfrastructures()
+    return { workers: workers, infrastructures: infrastructures }
+  })()
 
   const logs = {}
 
@@ -65,7 +70,6 @@ const runDay = async () => {
         supply(workers, ressourcesToConsume)
       }
     })
-
     const workOutPuts = await Promise.all(
       workForcesToAdd.map(w => $addWorkForceToInfrastructureAndGetOutPuts(w))
     )
