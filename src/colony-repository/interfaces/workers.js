@@ -19,3 +19,10 @@ module.exports.updateWorker = async (id, updatedWorker) => {
   console.log(queryUpdate)
   await modify("Workers", { id: id }, `set ${updatedWorker}`, {})
 }
+
+module.exports.updateWorkers = async (query, fields) => {
+  const workers = await this.getWorkers(query)
+  workers.forEach(worker => {
+    this.updateWorker(worker.id, fields)
+  })
+}
