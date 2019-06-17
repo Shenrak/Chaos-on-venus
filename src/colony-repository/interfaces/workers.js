@@ -13,12 +13,14 @@ module.exports.getWorkers = async (query) => {
 
 module.exports.updateWorker = async ({ id, changes }) => {
   let queryUpdate = "set "
-    console.log("UPDATE !!!!!!")
-  changes.forEach(async change => {
-    queryUpdate += `${[change]} = ${change}`
-  })
+  console.log("UPDATE !!!!!!")
+  queryUpdate += changes
+    .map(change => {
+      return `${[change]} = ${change}`
+    })
+    .join(",")
 
-  console.log("queryUpdate : " +  queryUpdate)
+  console.log("queryUpdate : " + queryUpdate)
 
   await modify("Workers", { id: id }, `set ${queryUpdate}`, {})
 }
