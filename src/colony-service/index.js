@@ -5,7 +5,7 @@ const {
   $addWorkForceToInfrastructureAndGetOutPuts
   //$setInfrastructures
 } = require("../utils/requests/infrastructures")
-// const { $consume, $refill } = require("../utils/requests/ressources")
+const { $consume, $refill } = require("../utils/requests/ressources")
 
 const findPlanningTask = (planning, hour) => {
   const planningTask = planning.find(planningTask => {
@@ -87,6 +87,13 @@ const runDay = async () => {
       }
     })
 
+    const refillState = ressourcesToRefill.map(({quantity, ressource}) => {
+      return $refill({quantity, ressource})
+    })
+    const consumeState = ressourcesToConsume.map(({quantity, ressource}) => {
+      return $consume({quantity, ressource})
+    }) 
+
     const dayLogs = {}
     if (JSON.stringify(workForcesToAdd) !== "[]") {
       dayLogs.workForcesToAdd = workForcesToAdd
@@ -100,7 +107,10 @@ const runDay = async () => {
     if (JSON.stringify(dayLogs) !== "{}") {
       logs[`${hour}:00`] = dayLogs
     }
+    await Promise.all(consumeState)
+    await Promise.all(refillState)
   }
+
 
   return logs
 }
