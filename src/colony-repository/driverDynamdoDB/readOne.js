@@ -13,7 +13,7 @@ const readOne = async (tableName, key) => {
         throw new Error(err)
       } else {
         console.log(`Succes readOne - Result : ${JSON.stringify(data, null, 2)}`)
-        resolve(data)
+        resolve(data.Items)
       }
     })
   })

@@ -14,7 +14,7 @@ const save = async (tableName, input) => {
         throw new Error(err)
       } else {
         console.log(`Succes create` )
-        resolve(data)
+        resolve(data.Items)
       }
     })
   })
