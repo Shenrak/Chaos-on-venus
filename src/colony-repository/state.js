@@ -34,7 +34,6 @@ const initState = (dirname, configFile) => {
     ressources
   }
 
-  console.log("INITIAL STATE", state)
   return state
 }
 

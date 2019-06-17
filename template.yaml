@@ -99,6 +99,19 @@ Resources:
             Path: /getstate
             Method: GET
 
+  InitDB:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: colony-repository/index.initDB
+      Role: !GetAtt LambdaExecutionRole.Arn
+      CodeUri: ./src
+      Events:
+        MyTimeApi:
+          Type: Api
+          Properties:
+            Path: /initDB
+            Method: GET
+
   CheckRessources:
     Type: AWS::Serverless::Function
     Properties:

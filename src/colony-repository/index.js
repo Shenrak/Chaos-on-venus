@@ -9,6 +9,8 @@ const {
   addWorkForceToInfrastructureAndGetOutPuts
 } = require("./interfaces/infrastructures")
 
+const { initDB } = require("./driverDynamdoDB/initDB")
+
 module.exports.consume = handleLambdaEvent(consume)
 module.exports.refill = handleLambdaEvent(refill)
 module.exports.getRessources = handleLambdaEvent(getRessources)
@@ -23,3 +25,4 @@ module.exports.addWorkForceToInfrastructureAndGetOutPuts = handleLambdaEvent(
 module.exports.getState = () => state
 module.exports.getStateLambda = handleLambdaEvent(this.getState)
 module.exports.getStateApi = handleApiEvent(this.getState)
+module.exports.initDB = handleApiEvent(initDB)
