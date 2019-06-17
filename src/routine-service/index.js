@@ -7,6 +7,12 @@ const {
 } = require("../utils/requests/infrastructures")
 const { $consume, $refill } = require("../utils/requests/ressources")
 
+const {
+  mayPlague,
+  mayDamageRobot,
+  mayMeteorFall
+} = require("../random-events/index")
+
 const findPlanningTask = (planning, hour) => {
   const planningTask = planning.find(planningTask => {
     return planningTask.startHour <= hour && planningTask.endHour >= hour
@@ -87,12 +93,12 @@ const runDay = async () => {
       }
     })
 
-    const refillState = ressourcesToRefill.map(({quantity, ressource}) => {
-      return $refill({quantity, ressource})
+    const refillState = ressourcesToRefill.map(({ quantity, ressource }) => {
+      return $refill({ quantity, ressource })
     })
-    const consumeState = ressourcesToConsume.map(({quantity, ressource}) => {
-      return $consume({quantity, ressource})
-    }) 
+    const consumeState = ressourcesToConsume.map(({ quantity, ressource }) => {
+      return $consume({ quantity, ressource })
+    })
 
     const dayLogs = {}
     if (JSON.stringify(workForcesToAdd) !== "[]") {
@@ -109,8 +115,11 @@ const runDay = async () => {
     }
     await Promise.all(consumeState)
     await Promise.all(refillState)
-  }
 
+    mayPlague()
+    mayDamageRobot()
+    mayMeteorFall()
+  }
 
   return logs
 }
