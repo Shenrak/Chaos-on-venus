@@ -54,7 +54,7 @@ module.exports.addWorkForceToInfrastructureAndGetOutPuts = async ({
   } else {
     infrastructure.totalWork = totalWork
   }
-  console.log("INFRASTRUCTUREEEEEEE !!!!!", infrastructure)
+
   const outPuts = infrastructure.outPuts
     .map(outPut => ({
       ...outPut,
@@ -62,10 +62,7 @@ module.exports.addWorkForceToInfrastructureAndGetOutPuts = async ({
     }))
     .filter(outPut => outPut.quantity > 0)
 
-  console.log(`Work output : ${outPuts}`)
-
   return {
-    WARNING: "THIS LAMBDA DONT CARE ABOUT ARGUMENTS FOR THE MOMENT",
     oldTotalWork: oldTotalWorkState,
     newTotalWork: totalWork,
     workForce,
