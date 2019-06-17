@@ -112,6 +112,13 @@ Resources:
       Handler: colony-repository/index.getWorkers
       CodeUri: ./src
 
+  UpdateWorkers:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: "updateWorker"
+      Handler: colony-repository/index.updatedWorker
+      CodeUri: ./src
+
   GetInfrastructure:
     Type: AWS::Serverless::Function
     Properties:
