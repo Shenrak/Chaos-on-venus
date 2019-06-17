@@ -6,7 +6,6 @@ const { workerFactory } = require("../utils/objects/workers")
 const initState = (dirname, configFile) => {
   const config = readJsonFile(dirname, configFile)
 
-  console.log("config.infrastructures", config.infrastructures)
   const { infrastructures, workers } = config.infrastructures.reduce(
     (accumulator, infrastructureConfig) => {
       const infrastructure = infractuctureFactory(infrastructureConfig.type)

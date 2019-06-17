@@ -11,7 +11,7 @@ const readAll = async tableName => {
         reject(err)
         throw new Error(err)
       } else {
-        console.log(`Succes readAll - Result : ${JSON.stringify(data, null, 2)}`)
+        //console.log(`Succes readAll - Result : ${JSON.stringify(data, null, 2)}`)
         resolve(data.Items)
       }
     })

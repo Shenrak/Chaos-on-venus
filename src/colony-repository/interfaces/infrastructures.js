@@ -4,8 +4,7 @@ const { readAll } = require("../driverDynamdoDB/readAll")
 
 module.exports.getInfrastructures = async ({ query }) => {
   const infrastructures = await readAll("Infrastructures")
-  console.log(infrastructures)
-  return queryArray(infrastructures)({ query })
+  return queryArray(infrastructures)(query)
 }
 
 module.exports.updateInfrastructures = async ({ id, changes }) => {
@@ -33,9 +32,9 @@ module.exports.addWorkForceToInfrastructureAndGetOutPuts = async ({
   console.log(
     `Starting work with ${workForce} on infrastrucutre ${infrastructureId}`
   )
-  const infrastructureTab = await this.getInfrastructures({
+  const infrastructureTab = await this.getInfrastructures({query: {
     id: infrastructureId
-  })
+  }})
 
   let infrastructure = infrastructureTab.length !== 0 ? infrastructureTab[0] : undefined
   
@@ -43,10 +42,15 @@ module.exports.addWorkForceToInfrastructureAndGetOutPuts = async ({
     throw new Error("pas d'infrastructure valide pour cet id", infrastructureId)
   }
 
+
   const oldTotalWorkState = infrastructure.totalWork
   const totalWork = workForce + oldTotalWorkState
 
   const nbOutPuts = Math.floor(totalWork / infrastructure.workNeeded)
+
+  console.log("infrastructure", infrastructure)
+  console.log("workForce", workForce)
+  console.log("nbOutPuts", nbOutPuts)
 
   //FAIRE l'UPDATE a la place --> PB CAR total work envoue NAN
   if (totalWork >= infrastructure.workNeeded) {
