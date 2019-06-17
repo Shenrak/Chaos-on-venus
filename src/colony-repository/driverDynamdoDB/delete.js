@@ -13,7 +13,7 @@ const remove = async (tableName, key) => {
         throw new Error(err)
       } else {
         console.log(`Succes remove`)
-        resolve(data)
+        resolve(data.Items)
       }
     })
   })

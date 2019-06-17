@@ -21,7 +21,7 @@ const modify = async (
         throw new Error(err)
       } else {
         console.log(`Succes update`)
-        resolve(data)
+        resolve(data.Items)
       }
     })
   })

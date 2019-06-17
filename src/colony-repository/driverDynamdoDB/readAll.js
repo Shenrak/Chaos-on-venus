@@ -12,7 +12,7 @@ const readAll = async tableName => {
         throw new Error(err)
       } else {
         console.log(`Succes readAll - Result : ${JSON.stringify(data, null, 2)}`)
-        resolve(data)
+        resolve(data.Items)
       }
     })
   })
