@@ -18,6 +18,7 @@ const initDB = async () => {
   })
 
   workers.forEach(async worker => {
+    console.log("Worker.TYPE", worker.type)
     await create("Workers", worker)
   })
 
