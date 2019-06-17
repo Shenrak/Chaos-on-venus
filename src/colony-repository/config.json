@@ -4,6 +4,15 @@
     "type": "central",
     "workers": [
       "human",
+      "human",
+      "human",
+      "human",
+      "robot",
+      "robot",
+      "robot",
+      "robot",
+      "robot",
+      "robot",
       "robot",
       "robot",
       "robot"

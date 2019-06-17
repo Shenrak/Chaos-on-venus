@@ -35,7 +35,9 @@ module.exports.createWorker = ({
   neededSupplies = [],
   skills = [],
   assignedInfrastructure,
-  planning
+  planning,
+  sick = false,
+  dead = false
 }) => {
   planning = planning.map(planningTask => {
     if(!planningTask.endHour) {
@@ -50,6 +52,8 @@ module.exports.createWorker = ({
     neededSupplies,
     skills,
     assignedInfrastructure,
-    planning
+    planning,
+    sick,
+    dead
   }
 }
