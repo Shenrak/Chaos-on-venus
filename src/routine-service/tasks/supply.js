@@ -21,6 +21,7 @@ module.exports.supply = (worker, ressourcesToConsume) => {
   worker.neededSupplies.map(({ ressource, quantity }) => {
     const multiplicator = getSupplyMultiplicator(ressource, worker)
     const consumed = quantity * multiplicator
+
     if (!ressourcesToConsume.find(r => r.ressource === ressource)) {
       ressourcesToConsume.push({ ressource, quantity: consumed })
     } else {
