@@ -110,15 +110,28 @@ const runDay = async () => {
     if (JSON.stringify(ressourcesToRefill) !== "[]") {
       dayLogs.ressourcesToRefill = ressourcesToRefill
     }
+
+    const plagueLog = mayPlague()
+    const damageLog = mayDamageRobot()
+    const meteorLog = mayMeteorFall()
+
+    if (plagueLog !== "") {
+      dayLogs.plagueLog = plagueLog
+    }
+
+    if (damageLog !== "") {
+      dayLogs.damageLog = damageLog
+    }
+
+    if (meteorLog !== "") {
+      dayLogs.meteorLog = meteorLog
+    }
+
     if (JSON.stringify(dayLogs) !== "{}") {
       logs[`${hour}:00`] = dayLogs
     }
     await Promise.all(consumeState)
     await Promise.all(refillState)
-
-    mayPlague()
-    mayDamageRobot()
-    mayMeteorFall()
   }
 
   return logs

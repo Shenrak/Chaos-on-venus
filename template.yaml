@@ -151,10 +151,18 @@ Resources:
       FunctionName: "refill"
       Handler: colony-repository/index.refill
       CodeUri: ./src
-
+      
   AddWorkForceToInfrastructureAndGetOutPuts:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: "addWorkForceToInfrastructureAndGetOutPuts"
       Handler: colony-repository/index.addWorkForceToInfrastructureAndGetOutPuts
       CodeUri: ./src
+      
+  SickenHumans:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: "sickenHumans"
+      Handler: colony-repository/interfaces/workers.sickenHuman
+      CodeUri: ./src
+      
