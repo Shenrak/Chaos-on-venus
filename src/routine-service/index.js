@@ -1,12 +1,8 @@
 const { TASK } = require("../utils/objects/workers")
 const { handleApiEvent } = require("../utils/event-handlers/api-event-handler")
 const { $getState } = require("../utils/requests/ressources")
-const {
-  $addWorkForceToInfrastructureAndGetOutPuts
-  //$setInfrastructures
-} = require("../utils/requests/infrastructures")
 const { $consume, $refill } = require("../utils/requests/ressources")
-const { supply, work } = require("./tasks")
+const { supply, work, executeWork } = require("./tasks")
 
 const {
   mayPlague,
@@ -45,26 +41,7 @@ const runDay = async () => {
       }
     })
 
-    const workOutPuts = await Promise.all(
-      workForcesToAdd.map(w => $addWorkForceToInfrastructureAndGetOutPuts(w))
-    )
-    workOutPuts.forEach(workOutPut => {
-      if (workOutPut.outPuts) {
-        workOutPut.outPuts.forEach(ressourceToRefill => {
-          const temp = ressourcesToRefill.find(
-            r => r.ressource === ressourceToRefill.ressource
-          )
-          if (temp) {
-            temp.quantity += ressourceToRefill.quantity
-          } else {
-            ressourcesToRefill.push({
-              ressource: ressourceToRefill.ressource,
-              quantity: ressourceToRefill.quantity
-            })
-          }
-        })
-      }
-    })
+    await executeWork(workForcesToAdd, ressourcesToConsume)
 
     const refillState = ressourcesToRefill.map(({ quantity, ressource }) => {
       return $refill({ quantity, ressource })
