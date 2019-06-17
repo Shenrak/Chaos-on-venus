@@ -33,11 +33,11 @@ const runDay = async () => {
       const planningTask = findPlanningTask(worker.planning, hour)
 
       if (planningTask.task === TASK.WORK) {
-        work(workers, infrastructures, workForcesToAdd)
+        work(worker, infrastructures, workForcesToAdd)
       }
 
       if (planningTask.task === TASK.SUPPLY) {
-        supply(workers, ressourcesToConsume)
+        supply(worker, ressourcesToConsume)
       }
     })
 
