@@ -1,15 +1,22 @@
-const { queryArray, setArrayElements } = require("./interfaces-tools")
-const { state } = require("../state")
-const infrastructures = state.infrastructures
+const { queryArray } = require("./interfaces-tools")
+const { modify } = require("../driverDynamdoDB/update")
+const { readAll } = require("../driverDynamdoDB/readAll")
 
-module.exports.getInfrastructures = ({ query = {} }) =>
-  queryArray(infrastructures)({ query })
+module.exports.getInfrastructures = async ({ query }) => {
+  const workers = await readAll("Infrastructures")
+  console.log(workers)
+  queryArray(workers)({ query })
+}
 
-module.exports.setInfrastructures = ({ query = {}, props }) => {
-  const newState = setArrayElements({ query, props })
-  state.infrastructures = newState
-  console.log("newState", newState)
-  return queryArray(newState)({ query })
+module.exports.updateInfrastructures = async ({ id, changes }) => {
+  let queryUpdate = "set "
+  changes.forEach(async change => {
+    queryUpdate += `${[change]} = ${change}`
+  })
+
+  console.log("queryUpdate : " +  queryUpdate)
+
+  await modify("Infrastructures", { id: id }, `set ${queryUpdate}`, {})
 }
 
 module.exports.addWorkForceToInfrastructureAndGetOutPuts = ({
