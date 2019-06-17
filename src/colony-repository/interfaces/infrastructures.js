@@ -1,51 +1,60 @@
 const { queryArray } = require("./interfaces-tools")
-const { modify } = require("../driverDynamdoDB/update")
+const { update } = require("../driverDynamdoDB/update")
 const { readAll } = require("../driverDynamdoDB/readAll")
 
 module.exports.getInfrastructures = async ({ query }) => {
-  const workers = await readAll("Infrastructures")
-  console.log(workers)
-  queryArray(workers)({ query })
+  const infrastructures = await readAll("Infrastructures")
+  console.log(infrastructures)
+  return queryArray(infrastructures)({ query })
 }
 
 module.exports.updateInfrastructures = async ({ id, changes }) => {
   let queryUpdate = "set "
-  changes.forEach(async change => {
-    queryUpdate += `${[change]} = ${change}`
-  })
+  let variableQuery = {}
+  queryUpdate += Object.keys(changes)
+    .map(key => {
+      console.log(key)
+      variableQuery[`:${key}`] = changes[key]
+      return `${key} = :${key}`
+    })
+    .join(",")
 
-  console.log("queryUpdate : " +  queryUpdate)
-
-  await modify("Infrastructures", { id: id }, `set ${queryUpdate}`, {})
+  await update("Infrastructures", { id: id }, queryUpdate, variableQuery)
 }
 
-module.exports.addWorkForceToInfrastructureAndGetOutPuts = ({
+module.exports.addWorkForceToInfrastructureAndGetOutPuts = async ({
   infrastructureId,
   workForce
 }) => {
-  if(typeof workForce !== "number") {
+  if (typeof workForce !== "number") {
     throw new Error("Invalid workForce", workForce)
   }
 
   console.log(
     `Starting work with ${workForce} on infrastrucutre ${infrastructureId}`
   )
-  // FAKE QUERY
-  const infrastructure = this.getInfrastructures({})[0]
+  const infrastructureTab = await this.getInfrastructures({
+    id: infrastructureId
+  })
+
+  let infrastructure = infrastructureTab.length !== 0 ? infrastructureTab[0] : undefined
+  
+  if (!infrastructure) {
+    throw new Error("pas d'infrastructure valide pour cette id")
+  }
 
   const oldTotalWorkState = infrastructure.totalWork
   const totalWork = workForce + oldTotalWorkState
 
-
   const nbOutPuts = Math.floor(totalWork / infrastructure.workNeeded)
 
-
+  //FAIRE l'UPDATE a la place --> PB CAR total work envoue NAN
   if (totalWork >= infrastructure.workNeeded) {
     infrastructure.totalWork = totalWork % infrastructure.workNeeded
   } else {
     infrastructure.totalWork = totalWork
   }
-
+  console.log("INFRASTRUCTUREEEEEEE !!!!!", infrastructure)
   const outPuts = infrastructure.outPuts
     .map(outPut => ({
       ...outPut,

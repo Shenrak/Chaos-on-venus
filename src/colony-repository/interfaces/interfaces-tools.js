@@ -15,7 +15,7 @@ module.exports.queryArray = (elements) => (query = {}) => {
     console.log("elements", elements)
     console.log("query", query)
   }
-
+  console.log(result)
   return result
 }
 

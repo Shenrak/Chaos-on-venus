@@ -13,6 +13,7 @@ const modify = async (
     ExpressionAttributeValues: expressionAttributeValues,
     ReturnValues: "UPDATED_NEW"
   }
+  console.log(params)
   return await new Promise((resolve, reject) => {
     docClient.update(params, (err, data) => {
       if (err) {

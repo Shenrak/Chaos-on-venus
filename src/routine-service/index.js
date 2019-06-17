@@ -1,7 +1,8 @@
 const { TASK } = require("../utils/objects/workers")
 const { handleApiEvent } = require("../utils/event-handlers/api-event-handler")
-const { $getState } = require("../utils/requests/ressources")
 const { $consume, $refill } = require("../utils/requests/ressources")
+const { $getWorkers } = require("../utils/requests/workers")
+const { $getInfrastructures } = require("../utils/requests/infrastructures")
 const { supply, work, executeWork } = require("./tasks")
 
 const {
@@ -19,8 +20,12 @@ const findPlanningTask = (planning, hour) => {
 }
 
 const runDay = async () => {
-  const state = await $getState()
-  const { workers, infrastructures } = state
+  //const state = await $getState()
+  const { workers, infrastructures } = await (async () => {
+    let workers = await $getWorkers()
+    let infrastructures = await $getInfrastructures()
+    return { workers: workers, infrastructures: infrastructures }
+  })()
 
   const logs = {}
 
