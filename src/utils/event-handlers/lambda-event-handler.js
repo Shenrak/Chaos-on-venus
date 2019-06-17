@@ -1,5 +1,5 @@
 const handleLambdaEvent = handler => async (event, context, callBack) => {
-  //console.log(`Incoming lambda event on ${context.functionName}`, event)
+  console.log(`Incoming lambda event on ${context.functionName}`)
 
   try {
     const result = handler(event) || {}
@@ -8,7 +8,7 @@ const handleLambdaEvent = handler => async (event, context, callBack) => {
       console.log("Awaiting for response...")
       await result.then(
         response => {
-          console.log("PROMISE RESPONSE", response)
+          // console.log("PROMISE RESPONSE", response)
           callBack(null, { response })
         },
         err => {

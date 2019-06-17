@@ -15,9 +15,7 @@ const consume = ({ quantity, ressource }) => {
         ressources[ressource]
       }`
     )
-    return `${ressource} consommées : ${quantity}. ${ressource} restantes : ${
-      ressources[ressource]
-    }`
+    return {[ressource]: ressources[ressource]}
   }
 }
 
@@ -33,9 +31,7 @@ function refill({ ressource, quantity }) {
     }`
   )
 
-  return `${ressource} créées : ${quantity}. Stock de ${ressource} : ${
-    ressources[ressource]
-  }`
+  return {[ressource]: ressources[ressource]}
 }
 
 // ACCESSORS

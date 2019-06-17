@@ -43,3 +43,10 @@ exports.$supply = ({ beingType }) => {
   })
   return result
 }
+
+exports.$getState = () => {
+  const result = invokeLambda({
+    FunctionName: "getStateLambda",
+  })
+  return result
+}

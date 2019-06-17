@@ -11,7 +11,22 @@
 //       workType: WORK_TYPE.MAKE_ELECTRICITY,
 //       efficiency: 2
 //     }
-//   ]
+//   ],
+//   planning: [{
+//   startHour: 7,
+//   endHour: 11,
+//   task: TASK.WORK
+// },{
+//   startHour: 12,
+//   task: TASK.SUPPLY
+// },{
+//   startHour: 13,
+//   endHour: 18,
+//   task: TASK.WORK
+// },{
+//   startHour: 19,
+//   task: TASK.SUPPLY
+// }]
 // }
 
 module.exports.createWorker = ({
@@ -22,6 +37,13 @@ module.exports.createWorker = ({
   assignedInfrastructure,
   planning
 }) => {
+  planning = planning.map(planningTask => {
+    if(!planningTask.endHour) {
+      planningTask.endHour = planningTask.startHour
+    }
+    return planningTask
+  })
+
   return {
     id,
     type,

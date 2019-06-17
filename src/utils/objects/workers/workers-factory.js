@@ -4,9 +4,10 @@ const { WORK_TYPE } = require("../infrastructures")
 const { createWorker } = require("./workers")
 
 
-const TASK = {
+module.exports.TASK = {
   SUPPLY: "SUPPLY",
-  WORK: "WORK"
+  WORK: "WORK",
+  DO_NOTHING: "DO_NOTHING"
 }
 
 
@@ -18,17 +19,17 @@ module.exports.WORKER_TYPE = {
 const standardPlanning = [{
   startHour: 7,
   endHour: 11,
-  task: TASK.WORK
+  task: this.TASK.WORK
 },{
   startHour: 12,
-  task: TASK.SUPPLY
+  task: this.TASK.SUPPLY
 },{
   startHour: 13,
   endHour: 18,
-  task: TASK.WORK
+  task: this.TASK.WORK
 },{
   startHour: 19,
-  task: TASK.SUPPLY
+  task: this.TASK.SUPPLY
 }]
 
 const workersProps = {

@@ -1,5 +1,5 @@
 const handleApiEvent = handler => async (event, context, callBack) => {
-  console.log(`Incoming request on ${context.functionName}`, event)
+  //console.log(`Incoming request on ${context.functionName}`, event)
 
   try {
     const result = handler(event) || {}
@@ -8,7 +8,7 @@ const handleApiEvent = handler => async (event, context, callBack) => {
       console.log("Awaiting for response...")
       await result.then(
         response => {
-          console.log("PROMISE RESPONSE", response)
+          // console.log("PROMISE RESPONSE", response)
           callBack(null, {
             statusCode: "200",
             body: JSON.stringify(response)
@@ -20,7 +20,7 @@ const handleApiEvent = handler => async (event, context, callBack) => {
         }
       )
     } else {
-      console.log("RESPONSE", result)
+      // console.log("RESPONSE", result)
       callBack(null, {
         statusCode: "200",
         body: JSON.stringify(result)

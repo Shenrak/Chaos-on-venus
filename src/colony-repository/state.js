@@ -1,38 +1,41 @@
 const { readJsonFile } = require("../utils/read-json-file")
 
-const { infractuctureFactory } = require("./objects/infrastructures")
-const { workerFactory } = require("./objects/workers")
+const { infractuctureFactory } = require("../utils/objects/infrastructures")
+const { workerFactory } = require("../utils/objects/workers")
 
-const config = readJsonFile(__dirname, process.env.CONFIG_FILE)
+const initState = (dirname, configFile) => {
+  const config = readJsonFile(dirname, configFile)
 
-const { infrastructures, workers } = config.infrastructures.reduce(
-  (accumulator, infrastructureConfig) => {
-    const infrastructure = infractuctureFactory(infrastructureConfig.type)
-    const infrastructures = [infrastructure, ...accumulator.infrastructures]
+  const { infrastructures, workers } = config.infrastructures.reduce(
+    (accumulator, infrastructureConfig) => {
+      const infrastructure = infractuctureFactory(infrastructureConfig.type)
+      const infrastructures = [infrastructure, ...accumulator.infrastructures]
 
-    const workers = infrastructureConfig.workers
-      .map(type => workerFactory(type, infrastructure.id))
-      .concat(accumulator.infrastructures)
+      const workers = infrastructureConfig.workers
+        .map(type => workerFactory(type, infrastructure.id))
+        .concat(accumulator.infrastructures)
 
-    return {
-      infrastructures,
-      workers
+      return {
+        infrastructures,
+        workers
+      }
+    },
+    {
+      infrastructures: [],
+      workers: []
     }
-  },
-  {
-    infrastructures: [],
-    workers: []
+  )
+
+  const ressources = config.ressources
+
+  const state = {
+    infrastructures,
+    workers,
+    ressources
   }
-)
 
-const ressources = config.ressources
-
-const state = {
-  infrastructures,
-  workers,
-  ressources
+  console.log("INITIAL STATE", state)
+  return state
 }
 
-console.log("INITIAL STATE", state)
-
-module.exports.state = state
+module.exports.state = initState(__dirname, process.env.CONFIG_FILE)

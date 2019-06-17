@@ -35,6 +35,21 @@ Resources:
               - lambda:InvokeAsync
               Resource: "*"
 
+  RunDay:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: "runDay"
+      Handler: colony-service/index.runDay
+      Role: !GetAtt LambdaExecutionRole.Arn
+      CodeUri: ./src
+      Timeout: 60
+      Events:
+        MyTimeApi:
+          Type: Api
+          Properties:
+            Path: /runDay
+            Method: GET
+
   DailyRoutine:
     Type: AWS::Serverless::Function
     Properties:
@@ -61,6 +76,15 @@ Resources:
           Properties:
             Path: /routine
             Method: GET
+
+
+  GetStateLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: "getStateLambda"
+      Handler: colony-repository/index.getStateLambda
+      Role: !GetAtt LambdaExecutionRole.Arn
+      CodeUri: ./src
 
   GetInitialState:
     Type: AWS::Serverless::Function
@@ -108,6 +132,13 @@ Resources:
     Properties:
       FunctionName: "getInfrastructures"
       Handler: colony-repository/index.getInfrastructures
+      CodeUri: ./src
+
+  SetInfrastructure:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: "setInfrastructures"
+      Handler: colony-repository/index.setInfrastructures
       CodeUri: ./src
 
   Consume:

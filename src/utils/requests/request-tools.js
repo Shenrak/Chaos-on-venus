@@ -4,6 +4,7 @@ const lambda = new aws.Lambda({
 })
 
 const invokeLambda = ({FunctionName, Payload = {}, ...props}) => {
+  console.log(`Invoking lambda ${FunctionName}`)
   return new Promise(function(resolve, reject) {
     lambda.invoke(
       {
