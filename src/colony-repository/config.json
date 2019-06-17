@@ -1,17 +1,10 @@
 {
   "infrastructures": [{
     "id": 1,
-    "type": "central",
+    "type": "power_plant",
     "workers": [
       "human",
       "human",
-      "human",
-      "human",
-      "robot",
-      "robot",
-      "robot",
-      "robot",
-      "robot",
       "robot",
       "robot",
       "robot",
