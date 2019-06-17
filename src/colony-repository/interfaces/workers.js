@@ -1,4 +1,4 @@
-const { handleLambdaEvent } = require("../utils/event-handlers")
+const { handleLambdaEvent } = require("../../utils/event-handlers")
 const { queryArray } = require("./interfaces-tools")
 //const { workers } = require("../state").state
 const { modify } = require("../driverDynamdoDB/update")
@@ -19,7 +19,7 @@ module.exports.updateWorker = async ({ id, changes }) => {
   })
 
   console.log(queryUpdate)
-  
+
   await modify("Workers", { id: id }, `set ${queryUpdate}`, {})
 }
 
@@ -48,6 +48,8 @@ const sicken = async ({ nbHurt }) => {
     }
   }
   console.log(i + " human(s) were sickened, " + dead + " human(s) died.")
+
+  return i + " human(s) were sickened, " + dead + " human(s) died."
 }
 
 module.exports.sickenHuman = handleLambdaEvent(sicken)

@@ -159,10 +159,10 @@ Resources:
       Handler: colony-repository/index.addWorkForceToInfrastructureAndGetOutPuts
       CodeUri: ./src
       
-  SickenHumans:
+  SickenHuman:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: "sickenHumans"
+      FunctionName: "sickenHuman"
       Handler: colony-repository/interfaces/workers.sickenHuman
       CodeUri: ./src
       

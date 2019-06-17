@@ -3,7 +3,7 @@ const {
   $damageBuilding,
   $sickenHuman,
   $damageRobot
-} = require("../utils/requests")
+} = require("../utils/requests/events")
 
 module.exports.mayMeteorFall = (probability = 0.001, building = "") => {
   if (Math.random() < probability) {
@@ -15,7 +15,7 @@ module.exports.mayMeteorFall = (probability = 0.001, building = "") => {
   }
 }
 
-module.exports.mayPlague = (probability = 0.05) => {
+module.exports.mayPlague = (probability = 1) => {
   if (Math.random() < probability) {
     return $sickenHuman({ nbHurt: Math.trunc((Math.random() * 10) / 2) })
   }
