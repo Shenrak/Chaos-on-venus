@@ -4,7 +4,7 @@ const { remove } = require("./delete")
 
 const removeAll = async tableName => {
   const result = await readAll(tableName)
-  const items = result.Items
+  const items = result
   await Promise.all(
     items.map(item => {
       if (item.id === undefined) {
