@@ -3,7 +3,7 @@ const { RESSOURCES } = require("../../../utils/enums")
 const { createInfrastructure } = require("./infrastructures")
 
 module.exports.INFRASTRUCTURE_TYPE = {
-  CENTRAL: "central",
+  POWER_PLANT: "power_plant",
   GREENHOUSE: "greenhouse"
 }
 
@@ -13,8 +13,8 @@ module.exports.WORK_TYPE = {
 }
 
 const infrastructuresProps = {
-  [this.INFRASTRUCTURE_TYPE.CENTRAL]: {
-    type: this.INFRASTRUCTURE_TYPE.CENTRAL,
+  [this.INFRASTRUCTURE_TYPE.POWER_PLANT]: {
+    type: this.INFRASTRUCTURE_TYPE.POWER_PLANT,
     workersCapacity: 6,
     outPuts: [{
       ressource: RESSOURCES.ELECTRICITY,

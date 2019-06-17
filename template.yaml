@@ -121,7 +121,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: "updateWorker"
-      Handler: colony-repository/index.updatedWorker
+      Handler: colony-repository/index.updateWorkers
       CodeUri: ./src
 
   GetInfrastructure:
@@ -131,11 +131,11 @@ Resources:
       Handler: colony-repository/index.getInfrastructures
       CodeUri: ./src
 
-  SetInfrastructure:
+  UpdateInfrastructures:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: "setInfrastructures"
-      Handler: colony-repository/index.setInfrastructures
+      FunctionName: "updateInfrastructures"
+      Handler: colony-repository/index.updateInfrastructures
       CodeUri: ./src
 
   Consume:

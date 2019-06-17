@@ -5,10 +5,10 @@ const { modify } = require("../driverDynamdoDB/update")
 const { readAll } = require("../driverDynamdoDB/readAll")
 const { WORKER_TYPE } = require("../../utils/objects/workers")
 
-module.exports.getWorkers = async ({ query }) => {
+module.exports.getWorkers = async (query) => {
   const workers = await readAll("Workers")
   console.log(workers)
-  queryArray(workers)({ query })
+  queryArray(workers)(query)
 }
 
 module.exports.updateWorker = async ({ id, changes }) => {
@@ -34,6 +34,7 @@ module.exports.updateWorkers = async (query, fields) => {
 
 const sicken = async ({ nbHurt }) => {
   const workers = await this.getWorkers({ type: WORKER_TYPE.HUMAN })
+  console.log("WOOOOOOOOOOOOOOOOOOOOOOOOOOORKERSSSSSSSSSSSS", workers)  
   workers.sort(() => Math.random() - 0.5)
 
   let i = 0
