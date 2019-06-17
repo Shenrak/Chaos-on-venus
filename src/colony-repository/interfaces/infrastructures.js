@@ -40,7 +40,7 @@ module.exports.addWorkForceToInfrastructureAndGetOutPuts = async ({
   let infrastructure = infrastructureTab.length !== 0 ? infrastructureTab[0] : undefined
   
   if (!infrastructure) {
-    throw new Error("pas d'infrastructure valide pour cette id")
+    throw new Error("pas d'infrastructure valide pour cet id", infrastructureId)
   }
 
   const oldTotalWorkState = infrastructure.totalWork
