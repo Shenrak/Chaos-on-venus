@@ -21,7 +21,7 @@ const infrastructuresProps = {
       quantity: 15,
     }],
     workType: this.WORK_TYPE.MAKE_ELECTRICITY,
-    workNeeded: 10
+    workNeeded: 12
   },
   [this.INFRASTRUCTURE_TYPE.GREENHOUSE]: {
     type: this.INFRASTRUCTURE_TYPE.GREENHOUSE,
