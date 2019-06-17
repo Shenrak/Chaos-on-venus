@@ -155,10 +155,9 @@ Resources:
       Handler: colony-repository/index.refill
       CodeUri: ./src
 
-  Work:
+  AddWorkForceToInfrastructureAndGetOutPuts:
     Type: AWS::Serverless::Function
     Properties:
-      Role: !GetAtt LambdaExecutionRole.Arn
-      FunctionName: "work"
-      Handler: colony-service/index.work
+      FunctionName: "addWorkForceToInfrastructureAndGetOutPuts"
+      Handler: colony-repository/index.addWorkForceToInfrastructureAndGetOutPuts
       CodeUri: ./src

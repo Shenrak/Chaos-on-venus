@@ -18,7 +18,7 @@ const infrastructuresProps = {
     workersCapacity: 6,
     outPuts: [{
       ressource: RESSOURCES.ELECTRICITY,
-      quantity: 10,
+      quantity: 15,
     }],
     workType: this.WORK_TYPE.MAKE_ELECTRICITY,
     workNeeded: 10
@@ -28,7 +28,7 @@ const infrastructuresProps = {
     workersCapacity: 6,
     outPuts: [{
       ressource: RESSOURCES.RATION,
-      quantity: 10,
+      quantity: 8,
     }],
     workType: this.WORK_TYPE.MAKE_RATIONS,
     workNeeded: 10
