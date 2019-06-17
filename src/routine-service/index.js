@@ -1,14 +1,9 @@
 const { TASK } = require("../utils/objects/workers")
 const { handleApiEvent } = require("../utils/event-handlers/api-event-handler")
-//const { $getState } = require("../utils/requests/ressources")
-const {
-  $addWorkForceToInfrastructureAndGetOutPuts
-  //$setInfrastructures
-} = require("../utils/requests/infrastructures")
 const { $consume, $refill } = require("../utils/requests/ressources")
-const { supply } = require("./tasks")
 const { $getWorkers } = require("../utils/requests/workers")
 const { $getInfrastructures } = require("../utils/requests/infrastructures")
+const { supply, work, executeWork } = require("./tasks")
 
 const {
   mayPlague,
@@ -43,53 +38,15 @@ const runDay = async () => {
       const planningTask = findPlanningTask(worker.planning, hour)
 
       if (planningTask.task === TASK.WORK) {
-        const infrastructure = infrastructures.find(
-          i => i.id === worker.assignedInfrastructure
-        )
-
-        if (!infrastructure) {
-          throw new Error("infrastructure not found")
-        }
-
-        const workForce = getWorkForce(worker, infrastructure)
-
-        if (
-          !workForcesToAdd.find(w => w.infrastructureId === infrastructure.id)
-        ) {
-          workForcesToAdd.push({
-            infrastructureId: infrastructure.id,
-            workForce: 0
-          })
-        }
-        workForcesToAdd.find(
-          w => w.infrastructureId === infrastructure.id
-        ).workForce += workForce
+        work(worker, infrastructures, workForcesToAdd)
       }
 
       if (planningTask.task === TASK.SUPPLY) {
-        supply(workers, ressourcesToConsume)
+        supply(worker, ressourcesToConsume)
       }
     })
-    const workOutPuts = await Promise.all(
-      workForcesToAdd.map(w => $addWorkForceToInfrastructureAndGetOutPuts(w))
-    )
-    workOutPuts.forEach(workOutPut => {
-      if (workOutPut.outPuts) {
-        workOutPut.outPuts.forEach(ressourceToRefill => {
-          const temp = ressourcesToRefill.find(
-            r => r.ressource === ressourceToRefill.ressource
-          )
-          if (temp) {
-            temp.quantity += ressourceToRefill.quantity
-          } else {
-            ressourcesToRefill.push({
-              ressource: ressourceToRefill.ressource,
-              quantity: ressourceToRefill.quantity
-            })
-          }
-        })
-      }
-    })
+
+    await executeWork(workForcesToAdd, ressourcesToRefill)
 
     const refillState = ressourcesToRefill.map(({ quantity, ressource }) => {
       return $refill({ quantity, ressource })
@@ -133,12 +90,6 @@ const runDay = async () => {
   }
 
   return logs
-}
-
-const getWorkForce = (worker, infrastructure) => {
-  const skill = worker.skills.find(s => s.workType === infrastructure.workType)
-  const workForce = skill ? skill.efficiency : 1
-  return workForce
 }
 
 // const work = (infrastructure, workForce) => {
