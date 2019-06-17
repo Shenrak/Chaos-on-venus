@@ -6,6 +6,7 @@ const {
   //$setInfrastructures
 } = require("../utils/requests/infrastructures")
 const { $consume, $refill } = require("../utils/requests/ressources")
+const { supply } = require("./tasks")
 
 const {
   mayPlague,
@@ -14,6 +15,7 @@ const {
 } = require("../random-events/index")
 
 const findPlanningTask = (planning, hour) => {
+  console.log("planning", planning)
   const planningTask = planning.find(planningTask => {
     return planningTask.startHour <= hour && planningTask.endHour >= hour
   })
@@ -60,15 +62,7 @@ const runDay = async () => {
       }
 
       if (planningTask.task === TASK.SUPPLY) {
-        worker.neededSupplies.map(({ ressource, quantity }) => {
-          if (!ressourcesToConsume.find(r => r.ressource === ressource)) {
-            ressourcesToConsume.push({ ressource, quantity })
-          } else {
-            ressourcesToConsume.find(
-              r => r.ressource === ressource
-            ).quantity += quantity
-          }
-        })
+        supply(workers, ressourcesToConsume)
       }
     })
 

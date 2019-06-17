@@ -5,7 +5,7 @@ const { consume, refill, getRessources } = require("./interfaces/ressources")
 const { getWorkers } = require("./interfaces/workers")
 const {
   getInfrastructures,
-  setInfrastructures,
+  updateInfrastructures,
   addWorkForceToInfrastructureAndGetOutPuts
 } = require("./interfaces/infrastructures")
 
@@ -17,7 +17,7 @@ module.exports.getRessources = handleLambdaEvent(getRessources)
 
 module.exports.getWorkers = handleLambdaEvent(getWorkers)
 module.exports.getInfrastructures = handleLambdaEvent(getInfrastructures)
-module.exports.setInfrastructures = handleLambdaEvent(setInfrastructures)
+module.exports.updateInfrastructures = handleLambdaEvent(updateInfrastructures)
 module.exports.addWorkForceToInfrastructureAndGetOutPuts = handleLambdaEvent(
   addWorkForceToInfrastructureAndGetOutPuts
 )
