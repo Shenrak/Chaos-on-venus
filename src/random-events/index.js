@@ -17,7 +17,7 @@ module.exports.mayMeteorFall = (probability = 0.001, building = "") => {
 
 module.exports.mayPlague = (probability = 0.05) => {
   if (Math.random() < probability) {
-    $sickenHuman({ nbHurt: Math.trunc((Math.random() * 10) / 2) })
+    return $sickenHuman({ nbHurt: Math.trunc((Math.random() * 10) / 2) })
   }
 }
 
