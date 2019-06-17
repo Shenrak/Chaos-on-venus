@@ -33,7 +33,7 @@ const runDay = async () => {
       const planningTask = findPlanningTask(worker.planning, hour)
 
       if (planningTask.task === TASK.WORK) {
-        work(workers, infrastructures,)
+        work(workers, infrastructures, workForcesToAdd)
       }
 
       if (planningTask.task === TASK.SUPPLY) {
@@ -41,7 +41,7 @@ const runDay = async () => {
       }
     })
 
-    await executeWork(workForcesToAdd, ressourcesToConsume)
+    await executeWork(workForcesToAdd, ressourcesToRefill)
 
     const refillState = ressourcesToRefill.map(({ quantity, ressource }) => {
       return $refill({ quantity, ressource })
