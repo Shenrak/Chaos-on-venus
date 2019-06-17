@@ -6,7 +6,7 @@ const {
   //$setInfrastructures
 } = require("../utils/requests/infrastructures")
 const { $consume, $refill } = require("../utils/requests/ressources")
-const { supply } = require("./tasks")
+const { supply, work } = require("./tasks")
 
 const {
   mayPlague,
@@ -15,7 +15,6 @@ const {
 } = require("../random-events/index")
 
 const findPlanningTask = (planning, hour) => {
-  console.log("planning", planning)
   const planningTask = planning.find(planningTask => {
     return planningTask.startHour <= hour && planningTask.endHour >= hour
   })
@@ -38,27 +37,7 @@ const runDay = async () => {
       const planningTask = findPlanningTask(worker.planning, hour)
 
       if (planningTask.task === TASK.WORK) {
-        const infrastructure = infrastructures.find(
-          i => i.id === worker.assignedInfrastructure
-        )
-
-        if (!infrastructure) {
-          throw new Error("infrastructure not found")
-        }
-
-        const workForce = getWorkForce(worker, infrastructure)
-
-        if (
-          !workForcesToAdd.find(w => w.infrastructureId === infrastructure.id)
-        ) {
-          workForcesToAdd.push({
-            infrastructureId: infrastructure.id,
-            workForce: 0
-          })
-        }
-        workForcesToAdd.find(
-          w => w.infrastructureId === infrastructure.id
-        ).workForce += workForce
+        work(workers, infrastructures,)
       }
 
       if (planningTask.task === TASK.SUPPLY) {
@@ -129,12 +108,6 @@ const runDay = async () => {
   }
 
   return logs
-}
-
-const getWorkForce = (worker, infrastructure) => {
-  const skill = worker.skills.find(s => s.workType === infrastructure.workType)
-  const workForce = skill ? skill.efficiency : 1
-  return workForce
 }
 
 // const work = (infrastructure, workForce) => {
