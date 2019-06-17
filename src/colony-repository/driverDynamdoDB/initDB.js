@@ -10,7 +10,9 @@ const initDB = async () => {
   await removeAll("Infrastructures")
 
   await removeAll("Workers")
+  
   await removeAll("Ressources")
+
   infrastructures.forEach(async infrastructure => {
     await create("Infrastructures", infrastructure)
   })

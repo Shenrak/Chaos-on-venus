@@ -20,7 +20,7 @@ const modify = async (
         reject(err)
         throw new Error(err)
       } else {
-        console.log(`Succes upadte`)
+        console.log(`Succes update`)
         resolve(data)
       }
     })
