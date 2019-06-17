@@ -11,7 +11,10 @@ const handleApiEvent = handler => async (event, context, callBack) => {
           // console.log("PROMISE RESPONSE", response)
           callBack(null, {
             statusCode: "200",
-            body: JSON.stringify(response)
+            body: JSON.stringify(response),
+            headers: {
+              "Access-Control-Allow-Origin": "*"
+            }
           })
         },
         err => {
@@ -23,7 +26,10 @@ const handleApiEvent = handler => async (event, context, callBack) => {
       // console.log("RESPONSE", result)
       callBack(null, {
         statusCode: "200",
-        body: JSON.stringify(result)
+        body: JSON.stringify(result),
+        headers: {
+          "Access-Control-Allow-Origin": "*"
+        }
       })
     }
   } catch (err) {
