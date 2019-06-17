@@ -39,7 +39,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: "runDay"
-      Handler: colony-service/index.runDay
+      Handler: routine-service/index.runDay
       Role: !GetAtt LambdaExecutionRole.Arn
       CodeUri: ./src
       Timeout: 60
@@ -49,34 +49,6 @@ Resources:
           Properties:
             Path: /runDay
             Method: GET
-
-  DailyRoutine:
-    Type: AWS::Serverless::Function
-    Properties:
-      FunctionName: "dailyRoutine"
-      Handler: routine-service/index.day
-      Role: !GetAtt LambdaExecutionRole.Arn
-      CodeUri: ./src
-      Events:
-        MyTimeApi:
-          Type: Api
-          Properties:
-            Path: /day
-            Method: GET
-
-  Routine:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: routine-service/index.routine
-      Role: !GetAtt LambdaExecutionRole.Arn
-      CodeUri: ./src
-      Events:
-        MyTimeApi:
-          Type: Api
-          Properties:
-            Path: /routine
-            Method: GET
-
 
   GetStateLambda:
     Type: AWS::Serverless::Function
