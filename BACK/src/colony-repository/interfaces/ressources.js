@@ -6,7 +6,7 @@ const { queryArray } = require("./interfaces-tools")
 
 module.exports.getRessources = async ({ query } = {}) => {
   const ressources = await readAll("Ressources")
-   return queryArray(ressources)(query)
+  return queryArray(ressources)(query)
 }
 
 module.exports.updateRessource = async ({ type, changes }) => {
@@ -49,9 +49,11 @@ const consume = async ({ quantity, ressource }) => {
 }
 
 const refill = async ({ ressource, quantity }) => {
-  const ressources = await this.getRessources({ type: ressource })
+  const ressources = await this.getRessources({ query: { type: "ration" } })
   let ressourceBDD = ressources[0]
+  console.log("ressources", ressources)
 
+  console.log("RESSOURCESBDD", ressourceBDD)
   if (!ressourceBDD) {
     unknownRessource(ressource)
   } else {
@@ -89,9 +91,6 @@ const refill = async ({ ressource, quantity }) => {
 //   return ressources.humans
 // }
 
-const getRessources = () => ressources
 
 module.exports.consume = consume
 module.exports.refill = refill
-
-module.exports.getRessources = getRessources

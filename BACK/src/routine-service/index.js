@@ -5,11 +5,11 @@ const { $getWorkers } = require("../utils/requests/workers")
 const { $getInfrastructures } = require("../utils/requests/infrastructures")
 const { supply, work, executeWork } = require("./tasks")
 
-// const {
-//   mayPlague,
-//   mayDamageRobot,
-//   mayMeteorFall
-// } = require("../random-events/index")
+const {
+  mayPlague,
+  mayDamageRobot,
+  mayMeteorFall
+} = require("../random-events/index")
 
 const findPlanningTask = (planning, hour) => {
   const planningTask = planning.find(planningTask => {
@@ -67,21 +67,21 @@ const runDay = async () => {
       dayLogs.ressourcesToRefill = ressourcesToRefill
     }
 
-    // const plagueLog = mayPlague()
-    // const damageLog = mayDamageRobot()
-    // const meteorLog = mayMeteorFall()
+    const plagueLog = mayPlague()
+    const damageLog = mayDamageRobot()
+    const meteorLog = mayMeteorFall()
 
-    // if (plagueLog !== "") {
-    //   dayLogs.plagueLog = plagueLog
-    // }
+    if (plagueLog !== "") {
+      dayLogs.plagueLog = plagueLog
+    }
 
-    // if (damageLog !== "") {
-    //   dayLogs.damageLog = damageLog
-    // }
+    if (damageLog !== "") {
+      dayLogs.damageLog = damageLog
+    }
 
-    // if (meteorLog !== "") {
-    //   dayLogs.meteorLog = meteorLog
-    // }
+    if (meteorLog !== "") {
+      dayLogs.meteorLog = meteorLog
+    }
 
     await Promise.all(consumeState)
     const ressources = await Promise.all(refillState)
