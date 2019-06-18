@@ -1,0 +1,83 @@
+#partielogs, #humains, #ressources, #education, #connect, #robots{
+  padding-top: 32px;
+  padding-bottom: 32px;
+}
+
+.logs{
+  background-color: #fc7955;
+  color: whitesmoke;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 500;
+  color: #fc7955;
+  text-transform: uppercase;
+}
+
+.subtitle {
+  font-size: 18px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+
+.ration{
+  color: #2abbc7;
+}
+
+.powerplant{
+  color: #ffb413;
+}
+
+.green{
+  color: #66c286;
+}
+
+.electricity{
+  color: #2d4154;
+}
+
+.data{
+  font-size: 30px;
+  font-weight: 500;
+}
+
+mat-card{
+  font-size: 14px;
+}
+
+.card-content {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.light{
+  background-image: url('../../assets/light-bulb.svg');
+  background-size: cover;
+  box-shadow: 0 10px 10px -6px rgba(0, 0, 0, 0.2);
+}
+
+.lunchbox{
+  background-image: url('../../assets/lunch-box.svg');
+  background-size: cover;
+  box-shadow: 0 10px 10px -6px rgba(0, 0, 0, 0.2);
+}
+
+.factory{
+  background-image: url('../../assets/factory.svg');
+  background-size: cover;
+  box-shadow: 0 10px 10px -6px rgba(0, 0, 0, 0.2);
+}
+
+.greenhouse{
+  background-image: url('../../assets/greenhouse.svg');
+  background-size: cover;
+  box-shadow: 0 10px 10px -6px rgba(0, 0, 0, 0.2);
+}
+
+.log{
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
