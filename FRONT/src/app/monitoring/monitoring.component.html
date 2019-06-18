@@ -1,0 +1,146 @@
+<div style="margin-top: 64px; padding: 32px;">
+  <div id="layout" fxLayout="row" fxLayoutGap="10px">
+    <div id="left-side" fxFlex="33%">
+      <!-- Infrastructures -->
+      <mat-card id="humains">
+        <div class="title">Infrastructures</div>
+        <mat-divider></mat-divider>
+
+        <div class="card-content" fxLayout="row" fxLayoutGap="10px">
+          <div mat-card-avatar class="greenhouse"></div>
+          <div fxLayout="column">
+            <mat-card-title class="subtitle green">{{INFRASTRUCTURESDATA[0].type}}</mat-card-title>
+            <mat-card-subtitle class="green">
+              <!-- {{RESSOURCESDATA.ration}} -->
+              <b>ID :</b> {{INFRASTRUCTURESDATA[0].id}}<br />
+              <b>Workers Capacity :</b> {{INFRASTRUCTURESDATA[0].workersCapacity}}<br />
+              <b>Work Type :</b> {{INFRASTRUCTURESDATA[0].workType}}<br />
+              <b>OUTPUT - </b>  {{INFRASTRUCTURESDATA[0].outPuts[0].ressource}} : {{INFRASTRUCTURESDATA[0].outPuts[0].quantity}}  <br />
+              <b>Total Work :</b> {{INFRASTRUCTURESDATA[0].totalWork}}<br />
+              <b>Work Needed :</b> {{INFRASTRUCTURESDATA[0].workNeeded}}<br />
+            </mat-card-subtitle>
+          </div>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="card-content" fxLayout="row" fxLayoutGap="10px">
+          <div mat-card-avatar class="factory"></div>
+          <div fxLayout="column">
+            <mat-card-title class="subtitle powerplant">{{INFRASTRUCTURESDATA[1].type}}</mat-card-title>
+            <mat-card-subtitle class="powerplant">
+              <!-- {{RESSOURCESDATA.ration}} -->
+              <b>ID :</b> {{INFRASTRUCTURESDATA[1].id}}<br />
+              <b>Workers Capacity :</b> {{INFRASTRUCTURESDATA[1].workersCapacity}}<br />
+              <b>Work Type :</b> {{INFRASTRUCTURESDATA[1].workType}}<br />
+              <b>OUTPUT - </b>  {{INFRASTRUCTURESDATA[1].outPuts[0].ressource}} : {{INFRASTRUCTURESDATA[1].outPuts[0].quantity}}  <br />
+              <b>Total Work :</b> {{INFRASTRUCTURESDATA[1].totalWork}}<br />
+              <b>Work Needed :</b> {{INFRASTRUCTURESDATA[1].workNeeded}}<br />
+            </mat-card-subtitle>
+          </div>
+        </div>
+      </mat-card>
+
+      <br />
+
+    </div>
+
+    <div id="center-side" fxFlex="33%">
+
+      <mat-card id="robots">
+        <!-- Robots -->
+        <div class="title">Robots</div>
+        <mat-divider></mat-divider>
+
+        <div class="card-content">
+          <mat-card-title class="subtitle">Caractéristique Robot 1</mat-card-title>
+          <div fxLayout="row">
+            Lorem ipsum dolor sit amet.
+          </div>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="card-content">
+          <mat-card-title class="subtitle">Caractéristique Robot 2</mat-card-title>
+          <div fxLayout="row">
+            Lorem ipsum dolor sit amet.
+          </div>
+        </div>
+
+
+        <mat-divider></mat-divider>
+
+        <div class="card-content">
+          <mat-card-title class="subtitle">Caractéristique Robot 3</mat-card-title>
+          <div fxLayout="row">
+            Lorem ipsum dolor sit amet.
+          </div>
+        </div>
+
+
+        <mat-divider></mat-divider>
+
+        <div class="card-content">
+          <mat-card-title class="subtitle">Caractéristique Robot 4</mat-card-title>
+          <div fxLayout="row">
+            Lorem ipsum dolor sit amet.
+          </div>
+        </div>
+
+
+      </mat-card>
+
+    </div>
+
+    <div id="right-side" fxFlex="33%">
+
+      <mat-card id="ressources">
+        <!-- Ressources -->
+        <div class="title">Ressources</div>
+        <mat-divider></mat-divider>
+
+        <div class="card-content" fxLayout="row" fxLayoutGap="10px">
+          <div mat-card-avatar class="lunchbox"></div>
+          <div fxLayout="column">
+            <mat-card-title class="subtitle ration">Rations</mat-card-title>
+            <mat-card-subtitle class="data ration">
+              <!-- {{RESSOURCESDATA.ration}} -->
+              {{RATION}}
+            </mat-card-subtitle>
+          </div>
+        </div>
+
+        <mat-divider></mat-divider>
+        <div class="card-content" fxLayout="row" fxLayoutGap="10px">
+          <div mat-card-avatar class="light"></div>
+          <div fxLayout="column">
+            <mat-card-title class="subtitle electricity">Electricité</mat-card-title>
+            <mat-card-subtitle class="data electricity">
+              <!-- {{RESSOURCESDATA.electricity}} -->
+              {{ELECTRICITY}}
+            </mat-card-subtitle>
+          </div>
+        </div>
+
+      </mat-card>
+
+    </div>
+  </div>
+
+  <div id="partielogs" fxLayout="row" fxLayoutGap="10px">
+    <mat-card class="logs" fxFlex="100%">
+      <h2>LOGS - {{HOUR}}</h2>
+      <mat-divider></mat-divider>
+      <br/>
+      <ul style="list-style-type: none;">
+        <li *ngFor="let log of LOGS" class="log">
+          <b>{{ log }};</b>
+        </li>
+      </ul>
+      <br/>
+    </mat-card>
+  </div>
+
+
+</div>
