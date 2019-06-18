@@ -1,6 +1,6 @@
 const { TASK } = require("../utils/objects/workers")
 const { handleApiEvent } = require("../utils/event-handlers/api-event-handler")
-const { $consume, $refill } = require("../utils/requests/ressources")
+const { $consume, $refill, $getRessources } = require("../utils/requests/ressources")
 const { $getWorkers } = require("../utils/requests/workers")
 const { $getInfrastructures } = require("../utils/requests/infrastructures")
 const { supply, work, executeWork } = require("./tasks")
@@ -84,10 +84,10 @@ const runDay = async () => {
     }
 
     await Promise.all(consumeState)
-    const ressources = await Promise.all(refillState)
-    
-    console.log(ressources)
+    await Promise.all(refillState)
 
+    const ressources = await $getRessources()
+    
     dayLogs.ressource = ressources
     if (JSON.stringify(dayLogs) !== "{}") {
       logs[`${hour}:00`] = dayLogs
