@@ -32,32 +32,43 @@ module.exports.addWorkForceToInfrastructureAndGetOutPuts = async ({
   console.log(
     `Starting work with ${workForce} on infrastrucutre ${infrastructureId}`
   )
-  const infrastructureTab = await this.getInfrastructures({query: {
-    id: infrastructureId
-  }})
+  const infrastructureTab = await this.getInfrastructures({
+    query: {
+      id: infrastructureId
+    }
+  })
 
-  let infrastructure = infrastructureTab.length !== 0 ? infrastructureTab[0] : undefined
-  
+  let infrastructure =
+    infrastructureTab.length !== 0 ? infrastructureTab[0] : undefined
+
   if (!infrastructure) {
     throw new Error("pas d'infrastructure valide pour cet id", infrastructureId)
   }
 
-
   const oldTotalWorkState = infrastructure.totalWork
   const totalWork = workForce + oldTotalWorkState
 
-  const nbOutPuts = Math.floor(totalWork / infrastructure.workNeeded)
+  const nbOutPuts = Math.floor(totalWork / infrastructure.workNeeded) // determine nbRessources
 
+  console.log("oldTotalWorkState", infrastructure.totalWork)
+  console.log("totalWork", totalWork)
+  console.log("nbOutPuts", nbOutPuts)
   console.log("infrastructure", infrastructure)
   console.log("workForce", workForce)
   console.log("nbOutPuts", nbOutPuts)
 
-  //FAIRE l'UPDATE a la place --> PB CAR total work envoue NAN
   if (totalWork >= infrastructure.workNeeded) {
+    // Attributes the rest of work
     infrastructure.totalWork = totalWork % infrastructure.workNeeded
   } else {
     infrastructure.totalWork = totalWork
   }
+
+  //Update database
+  this.updateInfrastructures({
+    id: infrastructureId,
+    changes: { totalWork: infrastructure.totalWork }
+  })
 
   const outPuts = infrastructure.outPuts
     .map(outPut => ({
