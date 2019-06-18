@@ -100,7 +100,34 @@ Resources:
         MyTimeApi:
           Type: Api
           Properties:
-            Path: /ressource
+            Path: /api/ressource
+            Method: GET
+  
+  GetInfrastructureAPI:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: chaos-api/index.getInfrastructures
+      Role: !GetAtt LambdaExecutionRole.Arn
+      CodeUri: ./src
+      Events:
+        MyTimeApi:
+          Type: Api
+          Properties:
+            Path: /api/infrastructures
+            Method: GET
+
+  
+  GetWorkersApi:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: chaos-api/index.getWorkers
+      Role: !GetAtt LambdaExecutionRole.Arn
+      CodeUri: ./src
+      Events:
+        MyTimeApi:
+          Type: Api
+          Properties:
+            Path: /api/workers
             Method: GET
 
   GetRessources:

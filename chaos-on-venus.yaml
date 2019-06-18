@@ -41,7 +41,7 @@ Resources:
         Fn::GetAtt:
         - LambdaExecutionRole
         - Arn
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1bba6c000c8ea843da7b9c5a7affcb16
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/e32a3bd8282e533e4580ce110fd1c065
       Timeout: 60
       Events:
         MyTimeApi:
@@ -58,7 +58,7 @@ Resources:
         Fn::GetAtt:
         - LambdaExecutionRole
         - Arn
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1bba6c000c8ea843da7b9c5a7affcb16
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/e32a3bd8282e533e4580ce110fd1c065
   GetInitialState:
     Type: AWS::Serverless::Function
     Properties:
@@ -67,7 +67,7 @@ Resources:
         Fn::GetAtt:
         - LambdaExecutionRole
         - Arn
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1bba6c000c8ea843da7b9c5a7affcb16
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/e32a3bd8282e533e4580ce110fd1c065
       Events:
         MyTimeApi:
           Type: Api
@@ -82,7 +82,7 @@ Resources:
         Fn::GetAtt:
         - LambdaExecutionRole
         - Arn
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1bba6c000c8ea843da7b9c5a7affcb16
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/e32a3bd8282e533e4580ce110fd1c065
       Events:
         MyTimeApi:
           Type: Api
@@ -98,64 +98,94 @@ Resources:
         Fn::GetAtt:
         - LambdaExecutionRole
         - Arn
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1bba6c000c8ea843da7b9c5a7affcb16
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/e32a3bd8282e533e4580ce110fd1c065
       Events:
         MyTimeApi:
           Type: Api
           Properties:
-            Path: /ressource
+            Path: /api/ressource
+            Method: GET
+  GetInfrastructureAPI:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: chaos-api/index.getInfrastructures
+      Role:
+        Fn::GetAtt:
+        - LambdaExecutionRole
+        - Arn
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/e32a3bd8282e533e4580ce110fd1c065
+      Events:
+        MyTimeApi:
+          Type: Api
+          Properties:
+            Path: /api/infrastructures
+            Method: GET
+  GetWorkersApi:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: chaos-api/index.getWorkers
+      Role:
+        Fn::GetAtt:
+        - LambdaExecutionRole
+        - Arn
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/e32a3bd8282e533e4580ce110fd1c065
+      Events:
+        MyTimeApi:
+          Type: Api
+          Properties:
+            Path: /api/workers
             Method: GET
   GetRessources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: getRessources
       Handler: colony-repository/index.getRessources
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1bba6c000c8ea843da7b9c5a7affcb16
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/e32a3bd8282e533e4580ce110fd1c065
   GetWorkers:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: getWorkers
       Handler: colony-repository/index.getWorkers
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1bba6c000c8ea843da7b9c5a7affcb16
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/e32a3bd8282e533e4580ce110fd1c065
   UpdateWorkers:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: updateWorker
       Handler: colony-repository/index.updateWorkers
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1bba6c000c8ea843da7b9c5a7affcb16
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/e32a3bd8282e533e4580ce110fd1c065
   GetInfrastructure:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: getInfrastructures
       Handler: colony-repository/index.getInfrastructures
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1bba6c000c8ea843da7b9c5a7affcb16
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/e32a3bd8282e533e4580ce110fd1c065
   UpdateInfrastructures:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: updateInfrastructures
       Handler: colony-repository/index.updateInfrastructures
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1bba6c000c8ea843da7b9c5a7affcb16
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/e32a3bd8282e533e4580ce110fd1c065
   Consume:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: consume
       Handler: colony-repository/index.consume
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1bba6c000c8ea843da7b9c5a7affcb16
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/e32a3bd8282e533e4580ce110fd1c065
   Refill:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: refill
       Handler: colony-repository/index.refill
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1bba6c000c8ea843da7b9c5a7affcb16
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/e32a3bd8282e533e4580ce110fd1c065
   AddWorkForceToInfrastructureAndGetOutPuts:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: addWorkForceToInfrastructureAndGetOutPuts
       Handler: colony-repository/index.addWorkForceToInfrastructureAndGetOutPuts
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1bba6c000c8ea843da7b9c5a7affcb16
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/e32a3bd8282e533e4580ce110fd1c065
   SickenHuman:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: sickenHuman
       Handler: colony-repository/interfaces/workers.sickenHuman
-      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/1bba6c000c8ea843da7b9c5a7affcb16
+      CodeUri: s3://ppd-lambda-deployment-artifacts-123456789012/e32a3bd8282e533e4580ce110fd1c065
