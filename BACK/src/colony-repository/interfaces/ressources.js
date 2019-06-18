@@ -1,5 +1,5 @@
 const { notEnoughRessources, unknownRessource } = require("./exceptions")
-const { ressources } = require("../state").state
+//const { ressources } = require("../state").state
 const { update } = require("../driverDynamdoDB/update")
 const { readAll } = require("../driverDynamdoDB/readAll")
 const { queryArray } = require("./interfaces-tools")
@@ -23,33 +23,32 @@ module.exports.updateRessource = async ({ type, changes }) => {
 }
 
 const consume = async ({ quantity, ressource }) => {
-  console.log("QUANTITY", quantity)
-  console.log("NOM DE LA RESSOURCE", ressource)
-  const r = await this.getRessources()
-  console.log("RESSOURCESSSSSZZZZ", r)
+  const ressources = await this.getRessources({ query: { type: ressource } })
+  let ressourceBDD = ressources[0]
   console.log(`Consuming ${quantity} ${ressource}`)
-  if (ressources[ressource] - quantity < 0) {
+
+  if (ressourceBDD.quantity - quantity < 0) {
     notEnoughRessources(ressource)
-  } else if (!ressources[ressource]) {
+  } else if (!ressourceBDD) {
     unknownRessource(ressource)
   } else {
-    ressources[ressource] -= quantity
+    ressourceBDD.quantity -= quantity
 
     await this.updateRessource({
       type: ressource,
-      changes: { quantity: ressources[ressource] }
+      changes: { quantity: ressourceBDD.quantity }
     })
     console.log(
-      `${ressource} consommées : ${quantity}. ${ressource} restantes : ${
-        ressources[ressource]
-      }`
+      `${ressourceBDD.type} consommées : ${quantity}. ${
+        ressourceBDD.type
+      } restantes : ${ressourceBDD.quantity}`
     )
     return { [ressource]: ressources[ressource] }
   }
 }
 
 const refill = async ({ ressource, quantity }) => {
-  const ressources = await this.getRessources({ query: { type: "ration" } })
+  const ressources = await this.getRessources({ query: { type: ressource } })
   let ressourceBDD = ressources[0]
   console.log("ressources", ressources)
 
@@ -90,7 +89,6 @@ const refill = async ({ ressource, quantity }) => {
 // function getHumans() {
 //   return ressources.humans
 // }
-
 
 module.exports.consume = consume
 module.exports.refill = refill
