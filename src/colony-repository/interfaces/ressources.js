@@ -4,12 +4,12 @@ const { update } = require("../driverDynamdoDB/update")
 const { readAll } = require("../driverDynamdoDB/readAll")
 const { queryArray } = require("./interfaces-tools")
 
-module.exports.getRessources = async query => {
-  const ressoucres = await readAll("Ressources")
-  return queryArray(ressoucres)(query)
+module.exports.getRessources = async ({ query } = {}) => {
+  const ressources = await readAll("Ressources")
+   return queryArray(ressources)(query)
 }
 
-module.exports.updateRessource = async ({ id, changes }) => {
+module.exports.updateRessource = async ({ type, changes }) => {
   let queryUpdate = "set "
   let variableQuery = {}
   queryUpdate += Object.keys(changes)
@@ -19,22 +19,26 @@ module.exports.updateRessource = async ({ id, changes }) => {
     })
     .join(",")
 
-  await update("Ressources", { id: id }, queryUpdate, variableQuery)
+  await update("Ressources", { type: type }, queryUpdate, variableQuery)
 }
 
 const consume = async ({ quantity, ressource }) => {
+  console.log("QUANTITY", quantity)
+  console.log("NOM DE LA RESSOURCE", ressource)
+  const r = await this.getRessources()
+  console.log("RESSOURCESSSSSZZZZ", r)
   console.log(`Consuming ${quantity} ${ressource}`)
   if (ressources[ressource] - quantity < 0) {
     notEnoughRessources(ressource)
   } else if (!ressources[ressource]) {
-    console.log("ressources", ressources)
     unknownRessource(ressource)
   } else {
+    ressources[ressource] -= quantity
+
     await this.updateRessource({
       type: ressource,
-      changes: { quantity: quantity }
+      changes: { quantity: ressources[ressource] }
     })
-    ressources[ressource] -= quantity
     console.log(
       `${ressource} consommées : ${quantity}. ${ressource} restantes : ${
         ressources[ressource]
@@ -45,14 +49,18 @@ const consume = async ({ quantity, ressource }) => {
 }
 
 const refill = async ({ ressource, quantity }) => {
-  if (!ressources[ressource]) {
+  const ressources = await this.getRessources({ type: ressource })
+  let ressourceBDD = ressources[0]
+
+  if (!ressourceBDD) {
     unknownRessource(ressource)
   } else {
+    ressourceBDD.quantity += quantity
+
     await this.updateRessource({
       type: ressource,
-      changes: { quantity: quantity }
+      changes: { quantity: ressourceBDD.quantity }
     })
-    ressources[ressource] += quantity
   }
   console.log(
     `${ressource} créées : ${quantity}. Stock de ${ressource} : ${

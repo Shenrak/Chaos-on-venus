@@ -1,6 +1,4 @@
 module.exports.queryArray = (elements) => (query = {}) => {
-  console.log("QUEEEEEEEEEEEEERY", query)
-  console.log("ELEEMEEEEEEEEENTS", elements)
   const result = elements.filter(i => {
     let match = true
 
