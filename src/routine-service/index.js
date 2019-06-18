@@ -56,13 +56,7 @@ const runDay = async () => {
     })
 
     const dayLogs = {}
-    dayLogs.ressource = [{
-      ressource: "ration",
-      quantity: 78
-    },{
-      ressource: "electricity",
-      quantity: 56
-    }]
+
     if (JSON.stringify(workForcesToAdd) !== "[]") {
       dayLogs.workForcesToAdd = workForcesToAdd
     }
@@ -89,11 +83,15 @@ const runDay = async () => {
     //   dayLogs.meteorLog = meteorLog
     // }
 
+    await Promise.all(consumeState)
+    const ressources = await Promise.all(refillState)
+    
+    console.log(ressources)
+
+    dayLogs.ressource = ressources
     if (JSON.stringify(dayLogs) !== "{}") {
       logs[`${hour}:00`] = dayLogs
     }
-    await Promise.all(consumeState)
-    await Promise.all(refillState)
   }
 
   return logs

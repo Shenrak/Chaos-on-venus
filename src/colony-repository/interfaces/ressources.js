@@ -1,7 +1,28 @@
 const { notEnoughRessources, unknownRessource } = require("./exceptions")
 const { ressources } = require("../state").state
+const { update } = require("../driverDynamdoDB/update")
+const { readAll } = require("../driverDynamdoDB/readAll")
+const { queryArray } = require("./interfaces-tools")
 
-const consume = ({ quantity, ressource }) => {
+module.exports.getRessources = async query => {
+  const ressoucres = await readAll("Ressources")
+  return queryArray(ressoucres)(query)
+}
+
+module.exports.updateRessource = async ({ id, changes }) => {
+  let queryUpdate = "set "
+  let variableQuery = {}
+  queryUpdate += Object.keys(changes)
+    .map(key => {
+      variableQuery[`:${key}`] = changes[key]
+      return `${key} = :${key}`
+    })
+    .join(",")
+
+  await update("Ressources", { id: id }, queryUpdate, variableQuery)
+}
+
+const consume = async ({ quantity, ressource }) => {
   console.log(`Consuming ${quantity} ${ressource}`)
   if (ressources[ressource] - quantity < 0) {
     notEnoughRessources(ressource)
@@ -9,20 +30,28 @@ const consume = ({ quantity, ressource }) => {
     console.log("ressources", ressources)
     unknownRessource(ressource)
   } else {
+    await this.updateRessource({
+      type: ressource,
+      changes: { quantity: quantity }
+    })
     ressources[ressource] -= quantity
     console.log(
       `${ressource} consommées : ${quantity}. ${ressource} restantes : ${
         ressources[ressource]
       }`
     )
-    return {[ressource]: ressources[ressource]}
+    return { [ressource]: ressources[ressource] }
   }
 }
 
-function refill({ ressource, quantity }) {
+const refill = async ({ ressource, quantity }) => {
   if (!ressources[ressource]) {
     unknownRessource(ressource)
   } else {
+    await this.updateRessource({
+      type: ressource,
+      changes: { quantity: quantity }
+    })
     ressources[ressource] += quantity
   }
   console.log(
@@ -31,7 +60,7 @@ function refill({ ressource, quantity }) {
     }`
   )
 
-  return {[ressource]: ressources[ressource]}
+  return { [ressource]: ressources[ressource] }
 }
 
 // ACCESSORS
