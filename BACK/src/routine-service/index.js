@@ -20,7 +20,6 @@ const findPlanningTask = (planning, hour) => {
 }
 
 const runDay = async () => {
-  //const state = await $getState()
   const { workers, infrastructures } = await (async () => {
     let workers = await $getWorkers()
     let infrastructures = await $getInfrastructures()

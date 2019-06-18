@@ -1,16 +1,14 @@
-const { state } = require("../state")
+const { getState } = require("../state")
 const { create } = require("./create")
 const { removeAll } = require("./deleteAll")
 
 const initDB = async () => {
-  const infrastructures = state.infrastructures
-  const workers = state.workers
-  const ressources = state.ressources
+  const { infrastructures, workers, ressources } = getState()
 
   await removeAll("Infrastructures")
 
   await removeAll("Workers")
-  
+
   await removeAll("Ressources")
 
   infrastructures.forEach(async infrastructure => {

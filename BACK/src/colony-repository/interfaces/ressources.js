@@ -1,5 +1,4 @@
 const { notEnoughRessources, unknownRessource } = require("./exceptions")
-//const { ressources } = require("../state").state
 const { update } = require("../driverDynamdoDB/update")
 const { readAll } = require("../driverDynamdoDB/readAll")
 const { queryArray } = require("./interfaces-tools")

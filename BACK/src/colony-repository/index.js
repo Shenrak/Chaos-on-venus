@@ -1,6 +1,6 @@
 const { handleApiEvent, handleLambdaEvent } = require("../utils/event-handlers")
 
-const { state } = require("./state")
+const { getState } = require("./state")
 const { consume, refill, getRessources } = require("./interfaces/ressources")
 const { getWorkers } = require("./interfaces/workers")
 const {
@@ -22,7 +22,7 @@ module.exports.addWorkForceToInfrastructureAndGetOutPuts = handleLambdaEvent(
   addWorkForceToInfrastructureAndGetOutPuts
 )
 
-module.exports.getState = () => state
+module.exports.getState = getState
 module.exports.getStateLambda = handleLambdaEvent(this.getState)
 module.exports.getStateApi = handleApiEvent(this.getState)
 module.exports.initDB = handleApiEvent(initDB)

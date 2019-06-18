@@ -1,6 +1,5 @@
 const { handleLambdaEvent } = require("../../utils/event-handlers")
 const { queryArray } = require("./interfaces-tools")
-//const { workers } = require("../state").state
 const { update } = require("../driverDynamdoDB/update")
 const { readAll } = require("../driverDynamdoDB/readAll")
 const { WORKER_TYPE } = require("../../utils/objects/workers")
