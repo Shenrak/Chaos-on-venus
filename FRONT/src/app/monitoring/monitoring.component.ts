@@ -437,16 +437,18 @@ export class MonitoringComponent implements OnInit {
               {
                 data: this.TABRATION,
                 borderColor: '#2abbc7',
+                backgroundColor: '#2abbc7',
                 fill: false,
-                label: 'Ration'
+                label: 'Rations'
               },
               {
                 data: this.TABELECTRICITY,
                 borderColor: '#2d4154',
+                backgroundColor: '#2d4154',
                 fill: false,
                 label: 'Electricité'
               },
-          ]
+            ]
           },
           options: {
             legend: {
@@ -515,6 +517,12 @@ export class MonitoringComponent implements OnInit {
           + this.RETRIEVEDATA[key].ressourcesToConsume[i].quantity);
       }
     }
+
+    // Si la clé plagueLog est présente, on rentre dans le IF
+    if (this.RETRIEVEDATA[key].hasOwnProperty('plagueLog')) {
+      this.LOGS.push('[' + key + '] EPIDEMEDIE DETECTEE - IMPACT SUR LES HUMAINS');
+    }
+
   }
 
   // Code sample
