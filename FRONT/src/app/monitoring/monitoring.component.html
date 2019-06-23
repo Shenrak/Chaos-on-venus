@@ -48,43 +48,13 @@
     <div id="center-side" fxFlex="33%">
 
       <mat-card id="robots">
-        <!-- Robots -->
-        <div class="title">Robots</div>
+        <!-- Graphique-->
+        <div class="title">évolution des ressources</div>
         <mat-divider></mat-divider>
 
         <div class="card-content">
-          <mat-card-title class="subtitle">Caractéristique Robot 1</mat-card-title>
           <div fxLayout="row">
-            Lorem ipsum dolor sit amet.
-          </div>
-        </div>
-
-        <mat-divider></mat-divider>
-
-        <div class="card-content">
-          <mat-card-title class="subtitle">Caractéristique Robot 2</mat-card-title>
-          <div fxLayout="row">
-            Lorem ipsum dolor sit amet.
-          </div>
-        </div>
-
-
-        <mat-divider></mat-divider>
-
-        <div class="card-content">
-          <mat-card-title class="subtitle">Caractéristique Robot 3</mat-card-title>
-          <div fxLayout="row">
-            Lorem ipsum dolor sit amet.
-          </div>
-        </div>
-
-
-        <mat-divider></mat-divider>
-
-        <div class="card-content">
-          <mat-card-title class="subtitle">Caractéristique Robot 4</mat-card-title>
-          <div fxLayout="row">
-            Lorem ipsum dolor sit amet.
+            <canvas id="canvas">{{chart}}</canvas>
           </div>
         </div>
 
@@ -97,7 +67,7 @@
 
       <mat-card id="ressources">
         <!-- Ressources -->
-        <div class="title">Ressources</div>
+        <div class="title">Ressources à la fin du jour</div>
         <mat-divider></mat-divider>
 
         <div class="card-content" fxLayout="row" fxLayoutGap="10px">

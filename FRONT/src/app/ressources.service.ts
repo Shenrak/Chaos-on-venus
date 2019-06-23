@@ -10,9 +10,9 @@ export class RessourcesService {
 
   constructor(private http: HttpClient) { }
 
-  getRessources() {
-    return this.http.get(this.url + '/ressource');
-  }
+  // getRessources() {
+  //   return this.http.get(this.url + '/ressource');
+  // }
 
   getDay() {
     return this.http.get(this.url + '/runDay');
